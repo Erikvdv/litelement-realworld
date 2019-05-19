@@ -1,12 +1,9 @@
-import { LitElement, html, property, customElement } from "lit-element";
-import { Article } from "../../models";
+import { LitElement, html, property, customElement } from 'lit-element';
+import { Article } from '../../models';
 import '../buttons/app-favorite-button';
-import { repeat } from "lit-html/directives/repeat";
-// import { ButtonClassType } from "../buttons/app-favorite-button";
+import { repeat } from 'lit-html/directives/repeat';
 
-
-
-@customElement("app-article-preview")
+@customElement('app-article-preview')
 export class AppArticleList extends LitElement {
 
   @property({ type: Object }) article: Article | undefined;
@@ -24,7 +21,7 @@ export class AppArticleList extends LitElement {
             </div>
       `;
     } else {
-      return
+      return;
     }
   }
 
@@ -35,7 +32,7 @@ export class AppArticleList extends LitElement {
             <a href="${`/profile/=${article.author.username}`}">
               <img src=${article.author.image} alt=${article.author.username} />
             </a>
-        
+
             <div class="info">
               <a class="author" href="${`/profile/=${article.author.username}`}">
                 ${article.author.username}
@@ -44,11 +41,11 @@ export class AppArticleList extends LitElement {
                 ${new Date(article.createdAt).toDateString()}
               </span>
             </div>
-        
+
             <div class="pull-xs-right">
               <app-favorite-button count=${article.favoritesCount}></app-favorite-button>
             </div>
-        </div>`
+        </div>`;
   }
 
   ArticleSummary = (article: Article) => {
@@ -63,7 +60,7 @@ export class AppArticleList extends LitElement {
             `)}
           </ul>
         </a>
-      `
+      `;
   }
 
 }
