@@ -10,8 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import { Reducer } from 'redux';
 import {
-  UPDATE_PAGE,
-  UPDATE_OFFLINE
+  UPDATE_PAGE
 } from '../actions/app';
 import { RootAction } from '../store';
 
@@ -31,11 +30,6 @@ const app: Reducer<AppState, RootAction> = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         page: action.page
-      };
-    case UPDATE_OFFLINE:
-      return {
-        ...state,
-        offline: action.offline
       };
     default:
       return state;

@@ -5,7 +5,6 @@ export enum ArticleListType {
 
 export interface ArticleListQuery {
     type: ArticleListType;
-  
     filters: {
       tag?: string,
       author?: string,

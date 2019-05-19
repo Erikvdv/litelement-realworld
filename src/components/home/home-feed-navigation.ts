@@ -1,12 +1,12 @@
-import { LitElement, html, property, customElement } from "lit-element";
+import { LitElement, html, property, customElement } from 'lit-element';
 
-@customElement("home-feed-navigation")
+@customElement('home-feed-navigation')
 export class MainView extends LitElement {
   @property({ type: String })
-  token = "";
+  token = '';
 
   @property({ type: String })
-  tab = "";
+  tab = '';
 
   createRenderRoot() {
     return this;
@@ -17,33 +17,33 @@ export class MainView extends LitElement {
       <div class="feed-toggle">
         <ul class="nav nav-pills outline-active">
           ${this.YourFeedTab(this.token, this.tab)}
-          ${this.GlobalFeedTab("all")}
+          ${this.GlobalFeedTab('all')}
         </ul>
       </div>
     `;
   }
 
   YourFeedTab = (token: string, tab: string) => {
-    token = "true";
+    token = 'true';
     if (token) {
       return html`
         <li class="nav-item">
-          <a href="" class=${tab==="feed" ? "nav-link active" : "nav-link" }>
+          <a href="" class=${tab=== 'feed' ? 'nav-link active' : 'nav-link'}>
             Your Feed
           </a>
         </li>
       `;
     }
     return null;
-  };
+  }
 
   GlobalFeedTab = (tab: string) => {
     return html`
       <li class="nav-item">
-        <a href="" class=${tab==="all" ? "nav-link active" : "nav-link" }>
+        <a href="" class=${tab==="all" ? 'nav-link active' : 'nav-link'}>
           Global Feed
         </a>
       </li>
     `;
-  };
+  }
 }

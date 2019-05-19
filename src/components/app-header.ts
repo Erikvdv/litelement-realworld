@@ -1,9 +1,9 @@
-import { html, customElement, LitElement, property } from "lit-element";
+import { html, customElement, LitElement, property } from 'lit-element';
 
-@customElement("app-header")
+@customElement('app-header')
 export class AppHeader extends LitElement {
-  @property({ type: String }) appName = "";
-  @property({ type: String }) currentUser = "";
+  @property({ type: String }) appName = '';
+  @property({ type: String }) currentUser = '';
 
   createRenderRoot() {
     return this;
@@ -23,7 +23,6 @@ export class AppHeader extends LitElement {
     `;
   }
 
-
   LoggedOutView = (currentUser: string) => {
     if (!currentUser) {
       return html`
@@ -41,7 +40,7 @@ export class AppHeader extends LitElement {
       `;
     }
     return null;
-  };
+  }
 
   LoggedInView = (currentUser: string) => {
     if (currentUser) {
@@ -68,7 +67,6 @@ export class AppHeader extends LitElement {
     }
 
     return null;
-  };
-
+  }
 
 }

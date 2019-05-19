@@ -1,16 +1,16 @@
-import { LitElement, html, property, customElement } from "lit-element";
+import { LitElement, html, property, customElement } from 'lit-element';
 
-@customElement("home-banner")
+@customElement('home-banner')
 export class HomeBanner extends LitElement {
-  @property({ type: String }) appName = "";
-  @property({ type: String }) token = "";
+  @property({ type: String }) appName = '';
+  @property({ type: String }) token = '';
 
   createRenderRoot() {
     return this;
   }
 
-  protected render() { 
-      return html`
+  protected render() {
+    return html`
         <div class="banner">
           <div class="container">
             <h1 class="logo-font">
@@ -20,6 +20,6 @@ export class HomeBanner extends LitElement {
           </div>
         </div>
       `;
-  
+
   }
 }

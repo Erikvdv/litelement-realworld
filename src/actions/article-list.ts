@@ -10,13 +10,13 @@ export const LOAD_ARTICLE_LIST_COMPLETED = 'LOAD_ARTICLE_LIST_COMPLETED';
 export const LOAD_ARTICLE_LIST_FAILED = 'LOAD_ARTICLE_LIST_FAILED';
 
 // Actions Interfaces
-export interface AppActionLoadArticleListRequested extends Action<'LOAD_ARTICLE_LIST_REQUESTED'> { config: ArticleListQuery };
-export interface AppActionLoadArticleListCompleted extends Action<'LOAD_ARTICLE_LIST_COMPLETED'> { articles: Article[] };
-export interface AppActionLoadArticleListFailed extends Action<'LOAD_ARTICLE_LIST_FAILED'> {};
+export interface AppActionLoadArticleListRequested extends Action<'LOAD_ARTICLE_LIST_REQUESTED'> { config: ArticleListQuery; }
+export interface AppActionLoadArticleListCompleted extends Action<'LOAD_ARTICLE_LIST_COMPLETED'> { articles: Article[]; }
+export interface AppActionLoadArticleListFailed extends Action<'LOAD_ARTICLE_LIST_FAILED'> {}
 
-export type ArticleListAction = 
-    AppActionLoadArticleListRequested | 
-    AppActionLoadArticleListCompleted | 
+export type ArticleListAction =
+    AppActionLoadArticleListRequested |
+    AppActionLoadArticleListCompleted |
     AppActionLoadArticleListFailed;
 
 type ThunkResult = ThunkAction<void, RootState, undefined, ArticleListAction>;
@@ -44,7 +44,7 @@ const loadArticleListRequested: ActionCreator<AppActionLoadArticleListRequested>
 };
 
 
-interface fetchArticleListResult {
+interface FetchArticleListResult {
     articles: Article[];
     articlesCount: number;
 
@@ -55,6 +55,6 @@ export const fetchArticleList: ActionCreator<ThunkResult> = (config: ArticleList
     dispatch(loadArticleListRequested(config));
     fetch(`${API_ROOT}/articles?limit=${config.filters.limit}&offset=${config.filters.offset}`)
         .then(res => res.json())
-        .then((data: fetchArticleListResult) => dispatch(loadArticleListCompleted(data.articles)))
+        .then((data: FetchArticleListResult) => dispatch(loadArticleListCompleted(data.articles)))
         .catch(() => dispatch(loadArticleListFailed()));
 };

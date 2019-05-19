@@ -1,4 +1,4 @@
-import { LitElement, html, property, customElement } from "lit-element";
+import { LitElement, html, property, customElement } from 'lit-element';
 
 export enum ButtonClassType {
   Disabled = 'disabled',
@@ -7,7 +7,7 @@ export enum ButtonClassType {
 }
 
 
-@customElement("app-favorite-button")
+@customElement('app-favorite-button')
 export class AppArticleList extends LitElement {
 
   @property({ type: String }) buttonClassType: ButtonClassType = ButtonClassType.Favorited;
@@ -22,7 +22,7 @@ export class AppArticleList extends LitElement {
             <button class="btn btn-sm ${this.buttonClassType}" @click=${this.clickHandler()}>
               <i class="ion-heart"></i> ${this.count}
             </button>
-         `
+         `;
   }
 
   clickHandler() {

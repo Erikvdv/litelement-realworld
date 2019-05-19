@@ -9,13 +9,13 @@ export const LOAD_TAGS_COMPLETED = 'LOAD_TAGS_COMPLETED';
 export const LOAD_TAGS_FAILED = 'LOAD_TAGS_FAILED';
 
 // Actions Interfaces
-export interface AppActionLoadTagsRequested extends Action<'LOAD_TAGS_REQUESTED'> {};
-export interface AppActionLoadTagsCompleted extends Action<'LOAD_TAGS_COMPLETED'> { tags: string[] };
-export interface AppActionLoadTagsFailed extends Action<'LOAD_TAGS_FAILED'> {};
+export interface AppActionLoadTagsRequested extends Action<'LOAD_TAGS_REQUESTED'> { }
+export interface AppActionLoadTagsCompleted extends Action<'LOAD_TAGS_COMPLETED'> { tags: string[]; }
+export interface AppActionLoadTagsFailed extends Action<'LOAD_TAGS_FAILED'> { }
 
-export type HomeAction = 
-    AppActionLoadTagsRequested | 
-    AppActionLoadTagsCompleted | 
+export type HomeAction =
+    AppActionLoadTagsRequested |
+    AppActionLoadTagsCompleted |
     AppActionLoadTagsFailed;
 
 type ThunkResult = ThunkAction<void, RootState, undefined, HomeAction>;
@@ -23,10 +23,10 @@ type ThunkResult = ThunkAction<void, RootState, undefined, HomeAction>;
 // Actions
 const loadTagsCompleted: ActionCreator<AppActionLoadTagsCompleted> = (tags: string[]) => {
     return {
-      type: LOAD_TAGS_COMPLETED,
-      tags
+        type: LOAD_TAGS_COMPLETED,
+        tags
     };
-  };
+};
 
 const loadTagsRequested: ActionCreator<AppActionLoadTagsRequested> = () => {
     return {

@@ -1,10 +1,9 @@
-import { LitElement, html, property, customElement } from "lit-element";
+import { LitElement, html, property, customElement } from 'lit-element';
 
-@customElement("home-tags")
+@customElement('home-tags')
 export class HomeTags extends LitElement {
   @property({ type: Array }) tags: Array<string> = [];
   @property({ type: Boolean }) isLoading = false;
-
 
   createRenderRoot() {
     return this;
@@ -24,7 +23,7 @@ export class HomeTags extends LitElement {
       return html`
         <div>Loading tags...</div>
       `;
-    } else if (tags.length === 0){
+    } else if (tags.length === 0) {
       return html`
         <div>No tags are here... yet.</div>
       `;
@@ -39,7 +38,6 @@ export class HomeTags extends LitElement {
           })}
       `;
     }
-    
   }
 
 }

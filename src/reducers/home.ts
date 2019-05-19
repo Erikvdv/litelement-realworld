@@ -8,7 +8,7 @@ export interface HomeState {
     tags?: string[];
     failure?: boolean;
     isFetching?: boolean;
-};
+}
 
 const home: Reducer<HomeState, RootAction> = (state = {}, action) => {
     switch (action.type) {
@@ -34,7 +34,7 @@ const home: Reducer<HomeState, RootAction> = (state = {}, action) => {
         default:
             return state;
     }
-}
+};
 
 
 export default home;

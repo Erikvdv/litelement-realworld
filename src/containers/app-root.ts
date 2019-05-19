@@ -1,6 +1,5 @@
 import { LitElement, html, property, PropertyValues, customElement } from 'lit-element';
 import { connect } from 'pwa-helpers/connect-mixin.js';
-import { installOfflineWatcher } from 'pwa-helpers/network.js';
 import { installRouter } from 'pwa-helpers/router.js';
 import { updateMetadata } from 'pwa-helpers/metadata.js';
 
@@ -10,8 +9,7 @@ import '../components/app-header';
 
 // These are the actions needed by this element.
 import {
-  navigate,
-  updateOffline
+  navigate
 } from '../actions/app';
 
 
@@ -32,9 +30,7 @@ export class AppRoot extends connect(store)(LitElement) {
     return html`
       <!-- Header -->
       <app-header appName="${this.appTitle}" currentUser="">
-            <!-- appName={this.props.appName}
-            currentUser={this.props.currentUser} /> -->
-    
+
       </app-header>
 
 
@@ -49,7 +45,6 @@ export class AppRoot extends connect(store)(LitElement) {
 
   protected firstUpdated() {
     installRouter((location) => store.dispatch(navigate(decodeURIComponent(location.pathname))));
-    installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
   }
 
   protected updated(changedProps: PropertyValues) {
@@ -66,6 +61,6 @@ export class AppRoot extends connect(store)(LitElement) {
 
 
   stateChanged(state: RootState) {
-    this._page = state.app!.page;
+    this._page = state.app.page;
   }
 }

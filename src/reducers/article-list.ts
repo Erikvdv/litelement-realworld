@@ -35,7 +35,7 @@ const articleList: Reducer<ArticleListState, RootAction> = (state = {}, action) 
         default:
             return state;
     }
-}
+};
 
 export default articleList;
 

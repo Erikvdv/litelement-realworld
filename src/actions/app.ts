@@ -5,41 +5,15 @@ import { ArticleListType, ArticleListQuery } from '../models';
 
 // Action Types
 export const UPDATE_PAGE = 'UPDATE_PAGE';
-export const UPDATE_OFFLINE = 'UPDATE_OFFLINE';
 
 // Actions Interfaces
-export interface AppActionUpdatePage extends Action<'UPDATE_PAGE'> {page: string};
-export interface AppActionUpdateOffline extends Action<'UPDATE_OFFLINE'> {offline: boolean};
+export interface AppActionUpdatePage extends Action<'UPDATE_PAGE'> { page: string; }
 
-export type AppAction = AppActionUpdatePage | AppActionUpdateOffline;
+export type AppAction = AppActionUpdatePage;
 
 type ThunkResult = ThunkAction<void, RootState, undefined, AppAction>;
 
-
-export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch) => {
-  // Extract the page name from path.
-  const page = path === '/' ? 'home' : path.slice(1);
-
-  dispatch(loadPage(page));
-
-
-};
-
-
-const loadPage: ActionCreator<ThunkResult> = (page: string) => (dispatch) => {
-  switch(page) {
-    case 'home':
-      import('../containers/app-home').then((module) => {
-        const config: ArticleListQuery = {type: ArticleListType.all, filters: {limit: 10, offset: 0}};
-        dispatch(module.fetchArticleList(config));
-        dispatch(module.fetchTags());
-      });
-      break;
-  }
-
-  dispatch(updatePage(page));
-};
-
+// Actions
 const updatePage: ActionCreator<AppActionUpdatePage> = (page: string) => {
   return {
     type: UPDATE_PAGE,
@@ -47,15 +21,24 @@ const updatePage: ActionCreator<AppActionUpdatePage> = (page: string) => {
   };
 };
 
-
-export const updateOffline: ActionCreator<ThunkResult> = (offline: boolean) => (dispatch, getState) => {
-  // Show the snackbar only if offline status changes.
-  if (offline !== getState().app!.offline) {
-
+const loadPage: ActionCreator<ThunkResult> = (page: string) => (dispatch) => {
+  switch (page) {
+    case 'home':
+      import('../containers/app-home').then((module) => {
+        const config: ArticleListQuery = { type: ArticleListType.all, filters: { limit: 10, offset: 0 } };
+        dispatch(module.fetchArticleList(config));
+        dispatch(module.fetchTags());
+      });
+      break;
   }
-  dispatch({
-    type: UPDATE_OFFLINE,
-    offline
-  });
+  dispatch(updatePage(page));
 };
+
+export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch) => {
+  // Extract the page name from path.
+  const page = path === '/' ? 'home' : path.slice(1);
+
+  dispatch(loadPage(page));
+};
+
 

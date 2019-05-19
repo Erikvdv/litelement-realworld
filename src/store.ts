@@ -25,7 +25,7 @@ import { ArticleListState } from './reducers/article-list';
 
 // Overall state extends static states and partials lazy states.
 export interface RootState {
-  app?: AppState;
+  app: AppState;
   home?: HomeState;
   articleList?: ArticleListState;
 }
