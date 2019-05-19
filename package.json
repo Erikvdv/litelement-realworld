@@ -1,0 +1,38 @@
+{
+  "name": "LitElement-Realworld",
+  "version": "0.0.1",
+  "contributors": [
+    "Erik van de Ven"
+  ],
+  "license": "BSD-3-Clause",
+  "repository": "Realworld",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "rm -rf dist && webpack --config webpack.config.js",
+    "serve": "prpl-server --root dist --port 3000"
+  },
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.4",
+    "lit-element": "^2.0.1",
+    "pwa-helpers": "^0.9.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.4",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^2.0.1",
+    "copy-webpack-plugin": "^4.6.0",
+    "html-webpack-plugin": "^3.2.0",
+    "prpl-server": "^1.4.0",
+    "ts-loader": "^6.0.0",
+    "typescript": "^3.1.3",
+    "webpack": "4.28.4",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.4.1",
+    "workbox-webpack-plugin": "^3.6.3"
+  }
+}

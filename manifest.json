@@ -1,0 +1,21 @@
+{
+  "name": "Conduit",
+  "short_name": "Conduit",
+  "description": "A place to share your LitElement knowledge.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#5cb85c",
+  "background_color": "#5cb85c",
+  "icons": [
+    {
+      "src": "images/manifest/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/manifest/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
