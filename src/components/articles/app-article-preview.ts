@@ -28,7 +28,6 @@ export class AppArticleList extends LitElement {
   ArticleMeta = (article: Article) => {
     return html`
         <div class="article-meta">
-          <a [routerLink]="['/profile', ">
             <a href="${`/profile/=${article.author.username}`}">
               <img src=${article.author.image} alt=${article.author.username} />
             </a>
@@ -50,7 +49,7 @@ export class AppArticleList extends LitElement {
 
   ArticleSummary = (article: Article) => {
     return html`
-        <a href="/article" class="preview-link">
+        <a href="/article/${article.slug}" class="preview-link">
           <h1>${article.title}</h1>
           <p>${article.description}</p>
           <span>Read more...</span>

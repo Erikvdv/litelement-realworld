@@ -8,7 +8,9 @@
 
 This LitElement Real World app is based on [PWA Starter Kit](https://pwa-starter-kit.polymer-project.org/) sample app.
 
-The code is written in Typescript and the build is done with Webpack. It is using Redux for state management.
+The code is written in Typescript and the build is done with Webpack. 
+It is using Redux for state management.
+And it uses Page.js for routing.
 
 Shadow-DOM is disabled as it is relying on the external RealWorld app stylesheet.
 

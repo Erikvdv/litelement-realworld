@@ -1,5 +1,4 @@
-import { html, customElement, property } from 'lit-element';
-import { PageViewElement } from '../components/page-view-element';
+import { html, customElement, property, LitElement } from 'lit-element';
 import '../components/home/home-banner';
 import '../components/home/home-tags';
 import '../components/home/home-feed-navigation';
@@ -19,7 +18,7 @@ store.addReducers({
 });
 
 @customElement('app-home')
-export class AppHome extends connect(store)(PageViewElement) {
+export class AppHome extends connect(store)(LitElement) {
 
   @property({ type: Array }) tags: string[] = [];
   @property({ type: Boolean }) tagsIsLoading = false;
@@ -53,7 +52,9 @@ export class AppHome extends connect(store)(PageViewElement) {
   stateChanged(state: RootState) {
     const homeState: HomeState | undefined = homeSelector(state);
     const articleListState: ArticleListState | undefined = articleListSelector(state);
-    if (!homeState || !articleListState) { return; }
+
+    if (!homeState || !articleListState) {
+      return; }
 
     (homeState.tags !== undefined) ? this.tags = homeState.tags : this.tags = [];
     homeState.isFetching ? this.tagsIsLoading = true : this.tagsIsLoading = false;

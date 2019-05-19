@@ -16,21 +16,24 @@ import {
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer.js';
 
-import app, { AppState } from './reducers/app';
-import { AppAction } from './actions/app';
+import app, { AppState } from './reducers/app-root';
+import { AppAction } from './actions/app-root';
 import { HomeState } from './reducers/home';
 import { HomeAction } from './actions/home';
 import { ArticleListAction } from './actions/article-list'
 import { ArticleListState } from './reducers/article-list';
+import { ArticleAction } from './actions/article';
+import { ArticleState } from './reducers/article';
 
 // Overall state extends static states and partials lazy states.
 export interface RootState {
   app: AppState;
   home?: HomeState;
   articleList?: ArticleListState;
+  article?: ArticleState;
 }
 
-export type RootAction = AppAction | HomeAction | ArticleListAction;
+export type RootAction = AppAction | HomeAction | ArticleListAction | ArticleAction;
 
 // Sets up a Chrome extension for time travel debugging.
 // See https://github.com/zalmoxisus/redux-devtools-extension for more information.
