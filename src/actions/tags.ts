@@ -13,12 +13,12 @@ export interface AppActionLoadTagsRequested extends Action<'LOAD_TAGS_REQUESTED'
 export interface AppActionLoadTagsCompleted extends Action<'LOAD_TAGS_COMPLETED'> { tags: string[]; }
 export interface AppActionLoadTagsFailed extends Action<'LOAD_TAGS_FAILED'> { }
 
-export type HomeAction =
+export type TagsAction =
     AppActionLoadTagsRequested |
     AppActionLoadTagsCompleted |
     AppActionLoadTagsFailed;
 
-type ThunkResult = ThunkAction<void, RootState, undefined, HomeAction>;
+type ThunkResult = ThunkAction<void, RootState, undefined, TagsAction>;
 
 // Actions
 const loadTagsCompleted: ActionCreator<AppActionLoadTagsCompleted> = (tags: string[]) => {

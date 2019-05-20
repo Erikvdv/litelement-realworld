@@ -1,19 +1,24 @@
 import { Reducer } from 'redux';
 import {
     LOAD_TAGS_REQUESTED, LOAD_TAGS_COMPLETED, LOAD_TAGS_FAILED
-} from '../actions/home';
+} from '../actions/tags';
 import { RootAction, RootState } from '../store';
 
-export interface HomeState {
-    tags?: string[];
-    failure?: boolean;
-    isFetching?: boolean;
+export interface TagsState {
+    tags: string[];
+    failure: boolean;
+    isFetching: boolean;
 }
 
-const home: Reducer<HomeState, RootAction> = (state = {}, action) => {
+const initialState: TagsState = {
+    tags: [],
+    failure: false,
+    isFetching: false
+};
+
+const tags: Reducer<TagsState, RootAction> = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_TAGS_REQUESTED:
-
             return {
                 ...state,
                 isFetching: true,
@@ -37,7 +42,7 @@ const home: Reducer<HomeState, RootAction> = (state = {}, action) => {
 };
 
 
-export default home;
+export default tags;
 
-export const homeSelector = (state: RootState) => state.home;
+export const tagsSelector = (state: RootState) => state.tags;
 

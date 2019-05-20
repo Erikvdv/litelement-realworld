@@ -2,8 +2,8 @@ import { LitElement, html, property, customElement } from 'lit-element';
 
 @customElement('home-tags')
 export class HomeTags extends LitElement {
-  @property({ type: Array }) tags: Array<string> = [];
-  @property({ type: Boolean }) isLoading = false;
+  @property() tags: Array<string> = [];
+  @property() isLoading = false;
 
   createRenderRoot() {
     return this;
@@ -29,7 +29,7 @@ export class HomeTags extends LitElement {
       `;
     } else {
       return html`
-        ${tags!.map(tag => {
+        ${tags.map(tag => {
           return html`
               <a href="" class="tag-default tag-pill">
                 ${tag}

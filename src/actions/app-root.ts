@@ -36,7 +36,6 @@ const goToHomePage: ActionCreator<ThunkResult> = () => (dispatch) => {
 };
 
 const goToArticlePage: ActionCreator<ThunkResult> = (articleId: string) => (dispatch) => {
-  console.log('go to article page');
   import('../containers/app-article').then((module) => {
     dispatch(module.fetchArticle(articleId));
     dispatch(updatePage('article'));
@@ -44,7 +43,6 @@ const goToArticlePage: ActionCreator<ThunkResult> = (articleId: string) => (disp
 };
 
 export const navigate: ActionCreator<ThunkResult> = () => (dispatch) => {
-  console.log('navigation triggered');
   router.base('');
   router('/home', () => dispatch(goToHomePage()));
   router('/article/:id', (ctx) => dispatch(goToArticlePage(ctx.params.id)));

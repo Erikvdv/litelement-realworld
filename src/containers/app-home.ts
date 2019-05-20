@@ -3,26 +3,31 @@ import '../components/home/home-banner';
 import '../components/home/home-tags';
 import '../components/home/home-feed-navigation';
 import '../components/articles/app-article-list';
-import { fetchTags } from '../actions/home';
-import { fetchArticleList } from '../actions/article-list';
+import '../components/articles/article-list-pagination';
+
+import { fetchArticleList, articleListSetPage } from '../actions/article-list';
 import { store, RootState } from '../store';
-import home, { homeSelector, HomeState } from '../reducers/home';
+import tags, { TagsState, tagsSelector } from '../reducers/tags';
 import { connect } from 'pwa-helpers/connect-mixin';
-import articleList, { ArticleListState, articleListSelector } from '../reducers/article-list';
+import articleList, { ArticleListState, articleListStateSelector, pageCountSelector } from '../reducers/article-list';
 import { Article } from '../models/article.model';
+import { fetchTags } from '../actions/tags';
 
 
 store.addReducers({
-  home,
+  tags,
   articleList
 });
 
 @customElement('app-home')
 export class AppHome extends connect(store)(LitElement) {
 
-  @property({ type: Array }) tags: string[] = [];
-  @property({ type: Boolean }) tagsIsLoading = false;
-  @property({ type: Array }) articleList: Article[] = [];
+  @property() private tags: string[] = [];
+  @property() private tagsIsLoading = false;
+  @property() private articleList: Article[] = [];
+  @property() private pageCount = 0;
+  @property() private activePage = 0;
+  @property() private pageSize = 0;
 
   createRenderRoot() {
     return this;
@@ -37,6 +42,11 @@ export class AppHome extends connect(store)(LitElement) {
             <div class="col-md-9">
               <home-feed-navigation></home-feed-navigation>
               <app-article-list .articleList=${this.articleList}></app-article-list>
+              <app-article-list-pagination
+                .pageCount=${this.pageCount}
+                .activePage=${this.activePage}
+                @page-selected="${(e: any) => { this.setPage(e.detail.page, this.pageSize); }}">
+              </app-article-list-pagination>
             </div>
             <div class="col-md-3">
               <div class="sidebar">
@@ -50,16 +60,22 @@ export class AppHome extends connect(store)(LitElement) {
   }
 
   stateChanged(state: RootState) {
-    const homeState: HomeState | undefined = homeSelector(state);
-    const articleListState: ArticleListState | undefined = articleListSelector(state);
+    const tagsState: TagsState | undefined = tagsSelector(state);
+    const articleListState: ArticleListState | undefined = articleListStateSelector(state);
 
-    if (!homeState || !articleListState) {
-      return; }
+    if (!tagsState || !articleListState) { return; }
 
-    (homeState.tags !== undefined) ? this.tags = homeState.tags : this.tags = [];
-    homeState.isFetching ? this.tagsIsLoading = true : this.tagsIsLoading = false;
+    this.tags = tagsState.tags;
+    tagsState.isFetching ? this.tagsIsLoading = true : this.tagsIsLoading = false;
 
-    (articleListState.articleList !== undefined) ? this.articleList = articleListState.articleList : this.articleList = [];
+    this.articleList = articleListState.articleList;
+    this.activePage = articleListState.activePage;
+    this.pageSize = articleListState.pageSize;
+    this.pageCount = pageCountSelector(state);
+  }
+
+  setPage(page: number, pageSize: number) {
+    store.dispatch(articleListSetPage(page, pageSize));
   }
 }
 
