@@ -7,7 +7,7 @@ import { connect } from 'pwa-helpers/connect-mixin';
 import article, { articleStateSelector } from '../reducers/article';
 import { fetchArticle } from '../actions/article';
 import { Article } from '../models';
-import '../components/article/app-article-meta';
+import '../components/article/article-meta';
 import { repeat } from 'lit-html/directives/repeat';
 
 

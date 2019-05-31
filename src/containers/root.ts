@@ -6,14 +6,18 @@ import { installRouter } from 'pwa-helpers/router';
 // This element is connected to the Redux store.
 import { store, RootState } from '../store';
 import '../components/app-header';
-import '../containers/app-home';
-import '../containers/app-article';
+import './home';
+import './article';
+import '../auth/registration.container';
+import '../auth/login.container';
 
 // These are the actions needed by this element.
 import {
   navigate
 } from '../actions/app-root';
 import { rootRoute } from '../reducers/app-root';
+import { UserResponse } from '../auth/user.model';
+import { loginRefresh } from '../auth/login.actions';
 
 
 @customElement('app-root')
@@ -39,11 +43,18 @@ export class AppRoot extends connect(store)(LitElement) {
       <main role="main" class="main-content">
         ${this._route === rootRoute.home ? html`<app-home></app-home>` : ''}
         ${this._route === rootRoute.article ? html`<app-article></app-article>` : '' }
+        ${this._route === rootRoute.register ? html`<app-register></app-register>` : '' }
+        ${this._route === rootRoute.login ? html`<app-login></app-login>` : '' }
       </main>
     `;
   }
 
   protected firstUpdated() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      const userResponse: UserResponse = JSON.parse(userString);
+      store.dispatch(loginRefresh(userResponse.user));
+    }
     installRouter(() => {
       store.dispatch(navigate());
     });

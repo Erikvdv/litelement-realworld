@@ -1,6 +1,6 @@
 import { LitElement, html, property, customElement } from 'lit-element';
 import { Article } from '../../models';
-import './app-article-preview';
+import './article-preview';
 import { repeat } from 'lit-html/directives/repeat.js';
 
 

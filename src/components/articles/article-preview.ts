@@ -1,6 +1,6 @@
 import { LitElement, html, property, customElement } from 'lit-element';
 import { Article } from '../../models';
-import '../buttons/app-favorite-button';
+import '../buttons/favorite-button';
 import { repeat } from 'lit-html/directives/repeat';
 
 @customElement('app-article-preview')

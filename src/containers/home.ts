@@ -2,7 +2,7 @@ import { html, customElement, property, LitElement } from 'lit-element';
 import '../components/home/home-banner';
 import '../components/home/home-tags';
 import '../components/home/home-feed-navigation';
-import '../components/articles/app-article-list';
+import '../components/articles/article-list';
 import '../components/articles/article-list-pagination';
 
 import { fetchArticleList, articleListSetPage } from '../actions/article-list';

@@ -20,7 +20,9 @@ export interface AppState {
 
 export enum rootRoute {
   home = 'home',
-  article = 'article'
+  article = 'article',
+  register = 'register',
+  login = 'login'
 }
 
 
