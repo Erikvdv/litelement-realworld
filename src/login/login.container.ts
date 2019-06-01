@@ -14,7 +14,7 @@ import { registrationStateSelector } from '../register';
 
 
 @customElement('app-login')
-export class AppLogin extends connect(store)(LitElement) {
+export class AppLoginContainer extends connect(store)(LitElement) {
 
   @property() private formIsValid = false;
   @property() private userLogin: UserLogin = {email: '', password: ''};

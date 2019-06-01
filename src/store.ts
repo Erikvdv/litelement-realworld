@@ -33,11 +33,11 @@ import { LoginAction } from './login/login.actions';
 // Overall state extends static states and partials lazy states.
 export interface RootState {
   app: AppState;
+  login: LoginState;
   tags?: TagsState;
   articleList?: ArticleListState;
   article?: ArticleState;
   registration?: RegistrationState;
-  login?: LoginState;
 }
 
 export type RootAction = AppAction | TagsAction | ArticleListAction | ArticleAction

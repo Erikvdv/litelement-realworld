@@ -45,24 +45,24 @@ export class HeaderComponent extends LitElement {
   LoggedInView = (currentUser: string) => {
     if (currentUser) {
       return html`
-                <ul class="nav navbar-nav pull-xs-right">
-                  <li class="nav-item">
-                    <a href="/" class="nav-link">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/editor" class="nav-link">
-                      <i class="ion-compose"></i>&nbsp;New Post
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/settings" class="nav-link">
-                      <i class="ion-gear-a"></i>&nbsp;Settings
-                    </a>
-                  </li>
-                  <li Name="nav-item">
-                    <a href="${this.currentUser}" className="nav-link">${this.currentUser}</a>
-                  </li>
-                </ul>
+        <ul class="nav navbar-nav pull-xs-right">
+          <li class="nav-item">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/editor" class="nav-link">
+              <i class="ion-compose"></i>&nbsp;New Article
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/settings" class="nav-link">
+              <i class="ion-gear-a"></i>&nbsp;Settings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href=${`/profile/${this.currentUser}`} class="nav-link">${this.currentUser}</a>
+          </li>
+        </ul>
       `;
     }
 

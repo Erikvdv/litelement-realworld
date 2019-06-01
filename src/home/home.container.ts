@@ -7,8 +7,7 @@ import '../shared/article-list/article-list.container';
 import { store, RootState } from '../store';
 import { TagsState, tagsSelector } from './home-tags.reducer';
 import { connect } from 'pwa-helpers/connect-mixin';
-
-
+import { isLoggedIn } from '../login';
 
 
 @customElement('app-home')
@@ -16,6 +15,7 @@ export class AppHomeContainer extends connect(store)(LitElement) {
 
   @property() private tags: string[] = [];
   @property() private tagsIsLoading = false;
+  @property() private isLoggedIn = false;
 
   createRenderRoot() {
     return this;
@@ -24,7 +24,9 @@ export class AppHomeContainer extends connect(store)(LitElement) {
   protected render() {
     return html`
       <div class="home-page">
-        <app-home-banner token="testtoken" appName="conduit"></app-home-banner>
+        ${!this.isLoggedIn ?
+          html`<app-home-banner token="testtoken" appName="conduit"></app-home-banner>` : ''
+        }
         <div class="container page">
           <div class="row">
             <div class="col-md-9">
@@ -46,9 +48,10 @@ export class AppHomeContainer extends connect(store)(LitElement) {
     const tagsState: TagsState | undefined = tagsSelector(state);
 
     if (!tagsState) { return; }
-
     this.tags = tagsState.tags;
     tagsState.isFetching ? this.tagsIsLoading = true : this.tagsIsLoading = false;
+
+    this.isLoggedIn = isLoggedIn(state);
   }
 }
 

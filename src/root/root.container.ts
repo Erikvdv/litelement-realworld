@@ -7,12 +7,13 @@ import '../shared/header/header.component';
 import '../home/home.container';
 import '../article/article.container';
 import '../register/registration.container';
-import '../login/login.container';
+import '../login';
 
 import { navigate } from './root.actions';
 import { rootRoute } from './root.reducer';
 import { UserResponse } from '../models/user.model';
 import { loginRefresh } from '../login/login.actions';
+import { userName } from '../login';
 
 @customElement('app-root')
 export class AppRoot extends connect(store)(LitElement) {
@@ -22,6 +23,9 @@ export class AppRoot extends connect(store)(LitElement) {
   @property()
   private _route = '';
 
+  @property()
+  private username = '';
+
   createRenderRoot() {
     return this;
   }
@@ -29,7 +33,7 @@ export class AppRoot extends connect(store)(LitElement) {
   protected render() {
     return html`
       <!-- Header -->
-      <app-header appName="${this.appTitle}" currentUser="">
+      <app-header appName="${this.appTitle}" .currentUser=${this.username}>
 
       </app-header>
       <!-- Main content -->
@@ -59,12 +63,13 @@ export class AppRoot extends connect(store)(LitElement) {
       updateMetadata({
         title: pageTitle,
         description: pageTitle
-        // This object also takes an image property, that points to an img src.
       });
     }
   }
 
   stateChanged(state: RootState) {
     this._route = state.app.route;
+
+    this.username = userName(state);
   }
 }

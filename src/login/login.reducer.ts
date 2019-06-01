@@ -52,7 +52,5 @@ const login: Reducer<LoginState, LoginAction> = (state = initialState, action) =
     }
 };
 
-
 export default login;
-
 
