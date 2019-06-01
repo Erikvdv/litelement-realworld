@@ -4,10 +4,6 @@ import { updateMetadata } from 'pwa-helpers/metadata';
 import { installRouter } from 'pwa-helpers/router';
 import { store, RootState } from '../store';
 import '../shared/header/header.component';
-import '../home/home.container';
-import '../article/article.container';
-import '../register/registration.container';
-import '../login';
 
 import { navigate } from './root.actions';
 import { rootRoute } from './root.reducer';
@@ -40,7 +36,7 @@ export class AppRoot extends connect(store)(LitElement) {
       <main role="main" class="main-content">
         ${this._route === rootRoute.home ? html`<app-home></app-home>` : ''}
         ${this._route === rootRoute.article ? html`<app-article></app-article>` : '' }
-        ${this._route === rootRoute.register ? html`<app-register></app-register>` : '' }
+        ${this._route === rootRoute.register ? html`<app-registration></app-registration>` : '' }
         ${this._route === rootRoute.login ? html`<app-login></app-login>` : '' }
       </main>
     `;

@@ -9,7 +9,7 @@ import '../shared/list-errors/list-errors.component';
 
 import { loginUser } from './login.actions';
 import { UserLogin } from './login.model';
-import { registrationStateSelector } from '../register';
+import { loginStateSelector } from '.';
 
 
 
@@ -71,9 +71,8 @@ export class AppLoginContainer extends connect(store)(LitElement) {
 
 
   stateChanged(state: RootState) {
-    const registrationState = registrationStateSelector(state);
-    if (!registrationState) { return; }
-    this.errors = registrationState.errors;
+    const loginState = loginStateSelector(state);
+    this.errors = loginState.errors;
   }
 
   validateForm() {

@@ -1,7 +1,7 @@
 import { LitElement, html, property, customElement } from 'lit-element';
 
 @customElement('app-home-feed-navigation')
-export class HomeFeedSelectionComponent extends LitElement {
+export class HomeFeedNavigationComponent extends LitElement {
   @property({ type: String })
   token = '';
 

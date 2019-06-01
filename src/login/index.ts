@@ -11,4 +11,5 @@ export { loginRefresh, AppLoginContainer };
 export const isLoggedIn = (state: RootState) => state.login.isLoggedIn;
 export const token = (state: RootState) => state.login.user.token;
 export const userName = (state: RootState) => state.login.user.username;
+export const loginStateSelector = (state: RootState) => state.login;
 

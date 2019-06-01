@@ -11,7 +11,7 @@ import { isLoggedIn } from '../login';
 
 
 @customElement('app-home')
-export class AppHomeContainer extends connect(store)(LitElement) {
+export class HomeContainer extends connect(store)(LitElement) {
 
   @property() private tags: string[] = [];
   @property() private tagsIsLoading = false;

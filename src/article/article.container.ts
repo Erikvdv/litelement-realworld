@@ -10,7 +10,7 @@ import { repeat } from 'lit-html/directives/repeat';
 
 
 @customElement('app-article')
-export class AppArticleContainer extends connect(store)(LitElement) {
+export class ArticleContainer extends connect(store)(LitElement) {
 
   @property({ type: Object }) private article: Article | undefined;
   @property({ type: Object }) private articleIsLoading = false;
