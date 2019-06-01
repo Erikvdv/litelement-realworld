@@ -1,26 +1,19 @@
 import { html, customElement, LitElement, property } from 'lit-element';
-
-
 import { store, RootState } from '../store';
 import { connect } from 'pwa-helpers/connect-mixin';
-// import { Article } from '../models/article.model';
-import article, { articleStateSelector } from './article.reducer';
-import { fetchArticle } from './article.actions';
+import { articleStateSelector } from './article.reducer';
 import { Article } from '../models';
 import './article-meta.component';
 import { repeat } from 'lit-html/directives/repeat';
 
 
-store.addReducers({
-  article
-});
+
 
 @customElement('app-article')
 export class AppArticleContainer extends connect(store)(LitElement) {
 
   @property({ type: Object }) private article: Article | undefined;
   @property({ type: Object }) private articleIsLoading = false;
-
 
   createRenderRoot() {
     return this;
@@ -61,17 +54,12 @@ export class AppArticleContainer extends connect(store)(LitElement) {
     `;
   }
 
-
   stateChanged(state: RootState) {
-    if (!state) { return; }
     const articleState = articleStateSelector(state);
 
     if (!articleState) { return; }
-
     articleState.isFetching ? this.articleIsLoading = true : this.articleIsLoading = false;
     articleState.article ? this.article = articleState.article : this.article = undefined;
 
   }
 }
-
-export { fetchArticle };

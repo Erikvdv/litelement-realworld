@@ -27,7 +27,7 @@ const updatePage: ActionCreator<AppActionUpdatePage> = (route: rootRoute) => {
 
 
 const goToHomePage: ActionCreator<ThunkResult> = () => (dispatch) => {
-  import('../home/home.container').then((module) => {
+  import('../home').then((module) => {
     const config: ArticleListQuery = { type: ArticleListType.all, filters: { limit: 10, offset: 0 } };
     dispatch(module.fetchArticleList(config));
     dispatch(module.fetchTags());
@@ -36,20 +36,20 @@ const goToHomePage: ActionCreator<ThunkResult> = () => (dispatch) => {
 };
 
 const goToArticlePage: ActionCreator<ThunkResult> = (articleId: string) => (dispatch) => {
-  import('../article/article.container').then((module) => {
+  import('../article').then((module) => {
     dispatch(module.fetchArticle(articleId));
     dispatch(updatePage(rootRoute.article));
   });
 };
 
 const goToRegistrationPage: ActionCreator<ThunkResult> = () => (dispatch) => {
-  import('../register/registration.container').then(() => {
+  import('../register').then(() => {
     dispatch(updatePage(rootRoute.register));
   });
 };
 
 const goToLoginPage: ActionCreator<ThunkResult> = () => (dispatch) => {
-  import('../login/login.container').then(() => {
+  import('../login').then(() => {
     dispatch(updatePage(rootRoute.login));
   });
 };

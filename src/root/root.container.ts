@@ -2,8 +2,6 @@ import { LitElement, html, property, PropertyValues, customElement } from 'lit-e
 import { connect } from 'pwa-helpers/connect-mixin';
 import { updateMetadata } from 'pwa-helpers/metadata';
 import { installRouter } from 'pwa-helpers/router';
-
-// This element is connected to the Redux store.
 import { store, RootState } from '../store';
 import '../shared/header/header.component';
 import '../home/home.container';
@@ -11,27 +9,22 @@ import '../article/article.container';
 import '../register/registration.container';
 import '../login/login.container';
 
-// These are the actions needed by this element.
-import {
-  navigate
-} from './root.actions';
+import { navigate } from './root.actions';
 import { rootRoute } from './root.reducer';
 import { UserResponse } from '../models/user.model';
 import { loginRefresh } from '../login/login.actions';
-
 
 @customElement('app-root')
 export class AppRoot extends connect(store)(LitElement) {
   @property({type: String})
   appTitle = '';
 
-  @property({type: String})
+  @property()
   private _route = '';
 
   createRenderRoot() {
     return this;
   }
-
 
   protected render() {
     return html`
