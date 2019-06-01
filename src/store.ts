@@ -16,18 +16,18 @@ import {
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer.js';
 
-import app, { AppState } from './reducers/app-root';
-import { AppAction } from './actions/app-root';
-import { TagsState } from './reducers/tags';
-import { ArticleListAction } from './actions/article-list';
-import { ArticleListState } from './reducers/article-list';
-import { ArticleAction } from './actions/article';
-import { ArticleState } from './reducers/article';
-import { TagsAction } from './actions/tags';
-import { RegistrationState } from './auth/registration.reducers';
-import { RegistrationAction } from './auth/registration.actions';
-import { LoginState } from './auth/login.reducer';
-import { LoginAction } from './auth/login.actions';
+import app, { AppState } from './root/root.reducer';
+import { AppAction } from './root/root.actions';
+import { TagsState } from './home/home-tags.reducer';
+import { ArticleListAction } from './shared/article-list/article-list.actions';
+import { ArticleListState } from './shared/article-list/article-list.reducer';
+import { ArticleAction } from './article/article.actions';
+import { ArticleState } from './article/article.reducer';
+import { TagsAction } from './home/home-tags.actions';
+import { RegistrationState } from './register/registration.reducers';
+import { RegistrationAction } from './register/registration.actions';
+import { LoginState } from './login/login.reducer';
+import { LoginAction } from './login/login.actions';
 
 
 // Overall state extends static states and partials lazy states.
