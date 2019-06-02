@@ -4,7 +4,7 @@ import '../buttons/favorite-button';
 import { repeat } from 'lit-html/directives/repeat';
 
 @customElement('app-article-list-article-preview')
-export class AppArticleListArticlePreview extends LitElement {
+export class ArticleListArticlePreviewComponent extends LitElement {
 
   @property({ type: Object }) article: Article | undefined;
 

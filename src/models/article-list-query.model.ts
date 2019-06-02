@@ -9,7 +9,8 @@ export interface ArticleListQuery {
       tag?: string,
       author?: string,
       favorited?: string,
-      limit?: number,
-      offset?: number
+      limit: number,
+      offset?: number,
+      [key: string]: string | number | undefined;
     };
   }

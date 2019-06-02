@@ -2,14 +2,16 @@ import { LitElement, html, property, PropertyValues, customElement } from 'lit-e
 import { connect } from 'pwa-helpers/connect-mixin';
 import { updateMetadata } from 'pwa-helpers/metadata';
 import { installRouter } from 'pwa-helpers/router';
+
 import { store, RootState } from '../store';
 import '../shared/header/header.component';
 
 import { navigate } from './root.actions';
-import { rootRoute } from './root.reducer';
+import { RootRoute } from './root.reducer';
 import { UserResponse } from '../models/user.model';
 import { loginRefresh } from '../login/login.actions';
 import { userName } from '../login';
+
 
 @customElement('app-root')
 export class AppRoot extends connect(store)(LitElement) {
@@ -34,10 +36,10 @@ export class AppRoot extends connect(store)(LitElement) {
       </app-header>
       <!-- Main content -->
       <main role="main" class="main-content">
-        ${this._route === rootRoute.home ? html`<app-home></app-home>` : ''}
-        ${this._route === rootRoute.article ? html`<app-article></app-article>` : '' }
-        ${this._route === rootRoute.register ? html`<app-registration></app-registration>` : '' }
-        ${this._route === rootRoute.login ? html`<app-login></app-login>` : '' }
+        ${this._route === RootRoute.home ? html`<app-home></app-home>` : ''}
+        ${this._route === RootRoute.article ? html`<app-article></app-article>` : '' }
+        ${this._route === RootRoute.register ? html`<app-registration></app-registration>` : '' }
+        ${this._route === RootRoute.login ? html`<app-login></app-login>` : '' }
       </main>
     `;
   }
@@ -54,7 +56,7 @@ export class AppRoot extends connect(store)(LitElement) {
   }
 
   protected updated(changedProps: PropertyValues) {
-    if (changedProps.has('_page')) {
+    if (changedProps.has('_route')) {
       const pageTitle = this.appTitle + ' - ' + this._route;
       updateMetadata({
         title: pageTitle,

@@ -18,12 +18,12 @@ import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer.js';
 
 import app, { AppState } from './root/root.reducer';
 import { AppAction } from './root/root.actions';
-import { TagsState } from './home/home-tags.reducer';
+import { HomeState } from './home/home.reducer';
 import { ArticleListAction } from './shared/article-list/article-list.actions';
 import { ArticleListState } from './shared/article-list/article-list.reducer';
 import { ArticleAction } from './article/article.actions';
 import { ArticleState } from './article/article.reducer';
-import { TagsAction } from './home/home-tags.actions';
+import { HomeAction } from './home/home.actions';
 import { RegistrationState } from './register/registration.reducers';
 import { RegistrationAction } from './register/registration.actions';
 import { LoginState } from './login/login.reducer';
@@ -34,13 +34,13 @@ import { LoginAction } from './login/login.actions';
 export interface RootState {
   app: AppState;
   login: LoginState;
-  tags?: TagsState;
+  home?: HomeState;
   articleList?: ArticleListState;
   article?: ArticleState;
   registration?: RegistrationState;
 }
 
-export type RootAction = AppAction | TagsAction | ArticleListAction | ArticleAction
+export type RootAction = AppAction | HomeAction | ArticleListAction | ArticleAction
 | RegistrationAction | LoginAction;
 
 // Sets up a Chrome extension for time travel debugging.

@@ -1,22 +1,25 @@
 import { Reducer } from 'redux';
 import {
-    LOAD_TAGS_REQUESTED, LOAD_TAGS_COMPLETED, LOAD_TAGS_FAILED
-} from './home-tags.actions';
+    LOAD_TAGS_REQUESTED, LOAD_TAGS_COMPLETED, LOAD_TAGS_FAILED, SET_ARTICLES_QUERY
+} from './home.actions';
 import { RootAction, RootState } from '../store';
+import { ArticleListQuery, ArticleListType } from '../models';
 
-export interface TagsState {
+export interface HomeState {
     tags: string[];
     failure: boolean;
     isFetching: boolean;
+    articleListQuery: ArticleListQuery;
 }
 
-const initialState: TagsState = {
+const initialState: HomeState = {
     tags: [],
     failure: false,
-    isFetching: false
+    isFetching: false,
+    articleListQuery: {type: ArticleListType.all, filters: {limit: 10, offset: 0}}
 };
 
-const tags: Reducer<TagsState, RootAction> = (state = initialState, action) => {
+const home: Reducer<HomeState, RootAction> = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_TAGS_REQUESTED:
             return {
@@ -36,13 +39,18 @@ const tags: Reducer<TagsState, RootAction> = (state = initialState, action) => {
                 isFetching: false,
                 tags: action.tags
             };
+        case SET_ARTICLES_QUERY:
+            return {
+                ...state,
+                articleListQuery: action.query
+            };
         default:
             return state;
     }
 };
 
 
-export default tags;
+export default home;
 
-export const tagsSelector = (state: RootState) => state.tags;
+export const homeSelector = (state: RootState) => state.home;
 

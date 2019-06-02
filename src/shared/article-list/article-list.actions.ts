@@ -1,7 +1,7 @@
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../store';
-import { Article, ArticleListQuery, ArticleListType } from '../../models';
+import { Article, ArticleListQuery } from '../../models';
 import { API_ROOT } from '../../constants';
 
 // Action Types
@@ -64,23 +64,27 @@ interface FetchArticleListResult {
 
 }
 
+function getAppSlug(query: ArticleListQuery) {
+    let slug = '';
+    Object.keys(query.filters).map(key => {
+            slug = slug + `${key}=${query.filters[key]}&`;
+    });
+    return slug.slice(0, -1);
+}
+
 // async action processors
-export const fetchArticleList: ActionCreator<ThunkResult> = (config: ArticleListQuery) => (dispatch) => {
-    dispatch(loadArticleListRequested(config));
-    fetch(`${API_ROOT}/articles?limit=${config.filters.limit}&offset=${config.filters.offset}`)
+export const fetchArticleList: ActionCreator<ThunkResult> = (query: ArticleListQuery) => (dispatch) => {
+    const slug = getAppSlug(query);
+    dispatch(loadArticleListRequested(query));
+    fetch(`${API_ROOT}/articles?${slug}`)
         .then(res => res.json())
         .then((data: FetchArticleListResult) => dispatch(loadArticleListCompleted(data.articles, data.articlesCount)))
         .catch(() => dispatch(loadArticleListFailed()));
 };
 
-export const articleListSetPage: ActionCreator<ThunkResult> = (page: number, pageSize: number) => (dispatch) => {
-    dispatch(articleListSetPageAction(page));
-    const config: ArticleListQuery = {
-        type: ArticleListType.all,
-        filters: {
-            limit: pageSize,
-            offset: (page - 1) * pageSize
-        }
-    };
-    dispatch(fetchArticleList(config));
+export const articleListSetPage: ActionCreator<ThunkResult> = (page: number, query: ArticleListQuery) => (dispatch) => {
+    dispatch(articleListSetPageAction(page, query));
+    const newQuery = { ...query};
+    newQuery.filters.offset = (page - 1) * newQuery.filters.limit;
+    dispatch(fetchArticleList(newQuery));
 };

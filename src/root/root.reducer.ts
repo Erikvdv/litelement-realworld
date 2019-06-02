@@ -15,10 +15,10 @@ import {
 import { RootAction } from '../store';
 
 export interface AppState {
-  route: rootRoute;
+  route: RootRoute;
 }
 
-export enum rootRoute {
+export enum RootRoute {
   home = 'home',
   article = 'article',
   register = 'register',
@@ -27,7 +27,7 @@ export enum rootRoute {
 
 
 const INITIAL_STATE: AppState = {
-  route: rootRoute.home
+  route: RootRoute.home
 };
 
 const appRoot: Reducer<AppState, RootAction> = (state = INITIAL_STATE, action) => {
