@@ -6,6 +6,7 @@ import { connect } from 'pwa-helpers/connect-mixin';
 import { store, RootState } from '../../store';
 import { articleListStateSelector, pageCountSelector } from './article-list.reducer';
 import { articleListSetPage, fetchArticleList } from './article-list.actions';
+import { getToken } from '../../login';
 
 
 @customElement('app-article-list')
@@ -14,6 +15,7 @@ export class ArticleListContainer extends connect(store)(LitElement) {
   @property() private articleList: Article[] = [];
   @property() private pageCount = 0;
   @property() private activePage = 0;
+  @property() private token = '';
 
   createRenderRoot() {
     return this;
@@ -34,13 +36,13 @@ export class ArticleListContainer extends connect(store)(LitElement) {
   }
 
   protected firstupdated() {
-    store.dispatch(fetchArticleList(this.articleListQuery));
+    store.dispatch(fetchArticleList(this.articleListQuery, this.token));
   }
 
   protected updated(changedProps: PropertyValues) {
     if (changedProps.has('articleListQuery')) {
-      store.dispatch(fetchArticleList(this.articleListQuery));
-      store.dispatch(articleListSetPage(1, this.articleListQuery));
+      store.dispatch(fetchArticleList(this.articleListQuery, this.token));
+      // store.dispatch(articleListSetPage(1, this.articleListQuery));
     }
   }
 
@@ -48,18 +50,18 @@ export class ArticleListContainer extends connect(store)(LitElement) {
   stateChanged(state: RootState) {
     const articleListState = articleListStateSelector(state);
     if (!articleListState) { return; }
-
+    this.token = getToken(state);
     this.articleList = articleListState.articleList;
     this.activePage = articleListState.activePage;
     this.pageCount = pageCountSelector(state);
   }
 
   queryChanged = () => {
-    store.dispatch(fetchArticleList(this.articleListQuery));
+    store.dispatch(fetchArticleList(this.articleListQuery, this.token));
   }
 
   setPage(page: number) {
-    store.dispatch(articleListSetPage(page, this.articleListQuery));
+    store.dispatch(articleListSetPage(page, this.articleListQuery, this.token));
   }
 
 }

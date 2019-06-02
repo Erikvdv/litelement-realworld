@@ -11,6 +11,8 @@ export class ArticleListPaginationComponent extends LitElement {
   }
 
   protected render() {
+    if (this.pageCount < 2) { return html``; }
+
     return html`
         <nav>
           <ul class="pagination">

@@ -68,8 +68,8 @@ export const navigateArticles: ActionCreator<ThunkResult> = (query: ArticleListQ
             history.pushState(null, '', '/login');
             dispatch(navigate());
         }, 0);
-
         return;
     }
+
     dispatch(setArticlesQuery(query));
 };

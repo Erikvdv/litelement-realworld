@@ -1,7 +1,7 @@
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../store';
-import { Article, ArticleListQuery } from '../../models';
+import { Article, ArticleListQuery, ArticleListType } from '../../models';
 import { API_ROOT } from '../../constants';
 
 // Action Types
@@ -66,6 +66,7 @@ interface FetchArticleListResult {
 
 function getAppSlug(query: ArticleListQuery) {
     let slug = '';
+    query.type === ArticleListType.feed ? slug = 'feed/?' : slug = '?';
     Object.keys(query.filters).map(key => {
             slug = slug + `${key}=${query.filters[key]}&`;
     });
@@ -73,10 +74,14 @@ function getAppSlug(query: ArticleListQuery) {
 }
 
 // async action processors
-export const fetchArticleList: ActionCreator<ThunkResult> = (query: ArticleListQuery) => (dispatch) => {
+export const fetchArticleList: ActionCreator<ThunkResult> = (query: ArticleListQuery, token: string) => (dispatch) => {
+    console.log('token: ' + token);
+    let headers: { [key: string]: string } = {};
+    if (token) { headers = {'Authorization': `Token ${token}`}; }
+
     const slug = getAppSlug(query);
     dispatch(loadArticleListRequested(query));
-    fetch(`${API_ROOT}/articles?${slug}`)
+    fetch(`${API_ROOT}/articles/${slug}`, {headers: headers})
         .then(res => res.json())
         .then((data: FetchArticleListResult) => dispatch(loadArticleListCompleted(data.articles, data.articlesCount)))
         .catch(() => dispatch(loadArticleListFailed()));

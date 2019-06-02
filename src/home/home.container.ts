@@ -55,6 +55,10 @@ export class HomeContainer extends connect(store)(LitElement) {
 
   protected firstUpdated() {
     store.dispatch(fetchTags());
+    store.dispatch(navigateArticles({
+      type: this.isLoggedIn ? ArticleListType.feed : ArticleListType.all,
+      filters: {limit: 10, offset: 0}
+    }, this.isLoggedIn));
   }
 
   stateChanged(state: RootState) {
@@ -70,7 +74,8 @@ export class HomeContainer extends connect(store)(LitElement) {
 
     this.feedNavigationInput = {
       isLoggedIn: this.isLoggedIn,
-      selectedTab: this.articleListQuery.filters.tag ? SelectedTab.tag : SelectedTab.all,
+      selectedTab: this.articleListQuery.type === ArticleListType.feed ?
+                SelectedTab.feed : this.articleListQuery.filters.tag ? SelectedTab.tag : SelectedTab.all,
       selectedTag: this.articleListQuery.filters.tag
     };
   }

@@ -30,7 +30,8 @@ const articleList: Reducer<ArticleListState, RootAction> = (state = initialState
             return {
                 ...state,
                 isFetching: true,
-                failure: false
+                failure: false,
+                activePage: action.config.filters.offset ?  (action.config.filters.offset / action.config.filters.limit) + 1 : 1
             };
         case LOAD_ARTICLE_LIST_FAILED:
             return {
