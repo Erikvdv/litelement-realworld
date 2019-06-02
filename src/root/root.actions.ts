@@ -2,9 +2,8 @@ import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../store';
 import { ArticleListType, ArticleListQuery } from '../models';
-import * as pagejs from 'page';
+import page from 'page';
 import { rootRoute } from './root.reducer';
-const router = pagejs.default;
 
 // Action Types
 export const UPDATE_PAGE = 'UPDATE_PAGE';
@@ -55,13 +54,13 @@ const goToLoginPage: ActionCreator<ThunkResult> = () => (dispatch) => {
 };
 
 export const navigate: ActionCreator<ThunkResult> = () => (dispatch) => {
-  router.base('');
-  router('/home', () => dispatch(goToHomePage()));
-  router('/article/:id', (ctx) => dispatch(goToArticlePage(ctx.params.id)));
-  router('/register', () => dispatch(goToRegistrationPage()));
-  router('/login', () => dispatch(goToLoginPage()));
-  router('*', () => dispatch(goToHomePage()));
-  router();
+  page.base('');
+  page('/home', () => dispatch(goToHomePage()));
+  page('/article/:id', (ctx) => dispatch(goToArticlePage(ctx.params.id)));
+  page('/register', () => dispatch(goToRegistrationPage()));
+  page('/login', () => dispatch(goToLoginPage()));
+  page('*', () => dispatch(goToHomePage()));
+  page();
 };
 
 
