@@ -55,10 +55,18 @@ export class HomeContainer extends connect(store)(LitElement) {
 
   protected firstUpdated() {
     store.dispatch(fetchTags());
-    store.dispatch(navigateArticles({
+    console.log('first updated 1: ' + JSON.stringify(this.articleListQuery));
+    this.articleListQuery = {
       type: this.isLoggedIn ? ArticleListType.feed : ArticleListType.all,
       filters: {limit: 10, offset: 0}
-    }, this.isLoggedIn));
+    };
+    console.log('first updated 2: ' + JSON.stringify(this.articleListQuery));
+    store.dispatch(navigateArticles(this.articleListQuery, this.isLoggedIn));
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.articleListQuery = undefined;
   }
 
   stateChanged(state: RootState) {
@@ -67,7 +75,7 @@ export class HomeContainer extends connect(store)(LitElement) {
     if (!homeState) { return; }
     this.tags = homeState.tags;
     this.articleListQuery = homeState.articleListQuery;
-
+    console.log('stateChanged: ' + JSON.stringify(this.articleListQuery));
     homeState.isFetching ? this.tagsIsLoading = true : this.tagsIsLoading = false;
 
     this.isLoggedIn = isLoggedIn(state);

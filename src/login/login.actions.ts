@@ -87,6 +87,7 @@ export const loginUser: ActionCreator<ThunkResult> = (userLogin: UserLogin) => a
 };
 
 export const loginRefresh: ActionCreator<ThunkResult> = (user: User) => async (dispatch) => {
+    dispatch(loginCompleted(user));
     dispatch(loginRefreshRequested());
 
     try {

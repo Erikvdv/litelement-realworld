@@ -28,7 +28,7 @@ const login: Reducer<LoginState, LoginAction> = (state = initialState, action) =
             };
         case LOGIN_REFRESH_REQUESTED:
             return {
-                ...initialState,
+                ...state,
                 isFetching: true,
                 failure: false
             };
