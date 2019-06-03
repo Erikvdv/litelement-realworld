@@ -27,7 +27,7 @@ export class ArticleListPaginationComponent extends LitElement {
     for (let i = 1; i < pageCount + 1; i++) {
       itemTemplates.push(
         html`
-          <li class="page-item ${(i === activePage) ? 'active' : ''}" @click="${() => this.pageSelected(i)}">
+          <li class="page-item ${(i === activePage) ? 'active' : ''}" @click=${() => this.pageSelected(i)}>
             <a class="page-link">${i}</a>
           </li>
           `);

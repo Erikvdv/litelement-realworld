@@ -1,10 +1,12 @@
 import { Reducer } from 'redux';
 import {
-    LOAD_ARTICLE_LIST_REQUESTED, LOAD_ARTICLE_LIST_COMPLETED, LOAD_ARTICLE_LIST_FAILED, ARTICLE_LIST_SET_PAGE
+    LOAD_ARTICLE_LIST_REQUESTED, LOAD_ARTICLE_LIST_COMPLETED, LOAD_ARTICLE_LIST_FAILED,
+    ARTICLE_LIST_SET_PAGE, SET_FAVORITE_REQUESTED, SET_FAVORITE_COMPLETED, SET_FAVORITE_FAILED, DELETE_FAVORITE_FAILED, DELETE_FAVORITE_COMPLETED, DELETE_FAVORITE_REQUESTED
 } from './article-list.actions';
 import { RootAction, RootState } from '../../store';
 import { Article } from '../../models';
 import { createSelector } from 'reselect';
+import { RequestStatus } from '../../models/request-status.model';
 
 export interface ArticleListState {
     articleList: Article[];
@@ -13,7 +15,8 @@ export interface ArticleListState {
     isFetching: boolean;
     activePage: number;
     pageSize: number;
-}
+    favoriteStatus: RequestStatus;
+};
 
 const initialState: ArticleListState = {
     articleList: [],
@@ -21,7 +24,8 @@ const initialState: ArticleListState = {
     failure: false,
     isFetching: false,
     activePage: 1,
-    pageSize: 10
+    pageSize: 10,
+    favoriteStatus: RequestStatus.notStarted
 };
 
 const articleList: Reducer<ArticleListState, RootAction> = (state = initialState, action) => {
@@ -51,6 +55,44 @@ const articleList: Reducer<ArticleListState, RootAction> = (state = initialState
                 ...state,
                 activePage: action.page
             };
+        case SET_FAVORITE_REQUESTED:
+            return {
+                ...state,
+                favoriteStatus: RequestStatus.fetching
+            };
+        case SET_FAVORITE_COMPLETED:
+
+            return {
+                ...state,
+                favoriteStatus: RequestStatus.completed,
+                articleList: state.articleList.map((item) =>
+                (item.slug === action.slug) ? {...action.article} : item )
+            };
+
+        case SET_FAVORITE_FAILED:
+                return {
+                    ...state,
+                    favoriteStatus: RequestStatus.failed
+                };
+        case DELETE_FAVORITE_REQUESTED:
+            return {
+                ...state,
+                favoriteStatus: RequestStatus.fetching
+            };
+        case DELETE_FAVORITE_COMPLETED:
+
+            return {
+                ...state,
+                favoriteStatus: RequestStatus.completed,
+                articleList: state.articleList.map((item) =>
+                (item.slug === action.slug) ? {...action.article} : item )
+            };
+
+        case DELETE_FAVORITE_FAILED:
+                return {
+                    ...state,
+                    favoriteStatus: RequestStatus.failed
+                };
         default:
             return state;
     }

@@ -5,7 +5,7 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { store, RootState } from '../../store';
 import { articleListStateSelector, pageCountSelector } from './article-list.reducer';
-import { articleListSetPage, fetchArticleList } from './article-list.actions';
+import { articleListSetPage, fetchArticleList, setFavorite, deleteFavorite } from './article-list.actions';
 import { getToken } from '../../login';
 
 
@@ -24,7 +24,11 @@ export class ArticleListContainer extends connect(store)(LitElement) {
   protected render() {
     return html`
         ${repeat(this.articleList, (article) => html`
-        <app-article-list-article-preview .article=${article}></app-article-list-article-preview>
+        <app-article-list-article-preview
+          .article=${article}
+          @mark-favorite=${(e: any) => { this.markFavorite(e.detail.slug); }}
+          @delete-favorite=${(e: any) => { this.deleteFavorite(e.detail.slug); }}
+        ></app-article-list-article-preview>
         `)
       }
       <app-article-list-pagination
@@ -42,7 +46,6 @@ export class ArticleListContainer extends connect(store)(LitElement) {
   protected updated(changedProps: PropertyValues) {
     if (changedProps.has('articleListQuery')) {
       store.dispatch(fetchArticleList(this.articleListQuery, this.token));
-      // store.dispatch(articleListSetPage(1, this.articleListQuery));
     }
   }
 
@@ -62,6 +65,14 @@ export class ArticleListContainer extends connect(store)(LitElement) {
 
   setPage(page: number) {
     store.dispatch(articleListSetPage(page, this.articleListQuery, this.token));
+  }
+
+  markFavorite(slug: string) {
+    store.dispatch(setFavorite(slug, this.token));
+  }
+
+  deleteFavorite(slug: string) {
+    store.dispatch(deleteFavorite(slug, this.token));
   }
 
 }

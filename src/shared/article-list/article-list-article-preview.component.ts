@@ -1,12 +1,11 @@
 import { LitElement, html, property, customElement } from 'lit-element';
 import { Article } from '../../models';
-import '../buttons/favorite-button';
 import { repeat } from 'lit-html/directives/repeat';
 
 @customElement('app-article-list-article-preview')
 export class ArticleListArticlePreviewComponent extends LitElement {
 
-  @property({ type: Object }) article: Article | undefined;
+  @property() article: Article | undefined;
 
   createRenderRoot() {
     return this;
@@ -42,7 +41,15 @@ export class ArticleListArticlePreviewComponent extends LitElement {
             </div>
 
             <div class="pull-xs-right">
-              <app-favorite-button count=${article.favoritesCount}></app-favorite-button>
+            <button
+              class=${`btn btn-sm
+                ${article.favorited ? `btn-primary` : `btn-outline-primary`}
+                `}
+              @click=${() => article.favorited ? 
+                this.deleteFavorite(article.slug) : this.markFavorite(article.slug)}
+              >
+                <i class="ion-heart"></i> ${article.favoritesCount}
+              </button>
             </div>
         </div>`;
   }
@@ -60,6 +67,24 @@ export class ArticleListArticlePreviewComponent extends LitElement {
           </ul>
         </a>
       `;
+  }
+
+  markFavorite(slug: string) {
+    const event = new CustomEvent('mark-favorite', {
+      detail: {
+        slug: slug
+      }
+    });
+    this.dispatchEvent(event);
+  }
+
+  deleteFavorite(slug: string) {
+    const event = new CustomEvent('delete-favorite', {
+      detail: {
+        slug: slug
+      }
+    });
+    this.dispatchEvent(event);
   }
 
 }
