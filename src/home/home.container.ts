@@ -55,12 +55,10 @@ export class HomeContainer extends connect(store)(LitElement) {
 
   protected firstUpdated() {
     store.dispatch(fetchTags());
-    console.log('first updated 1: ' + JSON.stringify(this.articleListQuery));
     this.articleListQuery = {
       type: this.isLoggedIn ? ArticleListType.feed : ArticleListType.all,
       filters: {limit: 10, offset: 0}
     };
-    console.log('first updated 2: ' + JSON.stringify(this.articleListQuery));
     store.dispatch(navigateArticles(this.articleListQuery, this.isLoggedIn));
   }
 
