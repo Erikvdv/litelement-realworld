@@ -4,7 +4,9 @@ import { fetchArticle } from './article.actions';
 import { ArticleContainer } from './article.container';
 
 store.addReducers({
-    article
-  });
+  article
+});
+
+import('./article-comment.component');
 
 export { fetchArticle, ArticleContainer };

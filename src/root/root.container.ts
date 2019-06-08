@@ -40,7 +40,22 @@ export class AppRoot extends connect(store)(LitElement) {
         ${this._route === RootRoute.register ? html`<app-registration></app-registration>` : '' }
         ${this._route === RootRoute.login ? html`<app-login></app-login>` : '' }
       </main>
-      <app-footer></app-footer>
+
+    `;
+  }
+
+  Footer = () => {
+    return html`
+      <footer>
+        <div class="container">
+            <a class="logo-font" routerLink="/">conduit</a>
+            <span class="attribution">
+            &copy; ${ (new Date()).getFullYear() }.
+            An interactive learning project from <a href="https://thinkster.io">Thinkster</a>.
+            Code licensed under MIT.
+            </span>
+        </div>
+        </footer>
     `;
   }
 
