@@ -29,7 +29,7 @@ export class AppArticleCommentComponent extends LitElement {
             <a class="comment-author" href=${`/profile/${this.comment.author.username}`}> ${this.comment.author.username} </a>
               <span class="date-posted">${this.comment.createdAt}</span>
               <span class="mod-options" ?hidden=${!this.isOwner}>
-                <i class="ion-trash-a" (click)="deleteClicked()"></i>
+                <i class="ion-trash-a" @click="${this.deleteClicked}"></i>
               </span>
           </div>
         </div>

@@ -5,8 +5,10 @@ import { articleStateSelector } from './article.reducer';
 import { Article } from '../models';
 import './article-meta.component';
 import { repeat } from 'lit-html/directives/repeat';
-import { fetchComments } from './article.actions';
+import { fetchComments, deleteComment } from './article.actions';
 import { RequestStatus } from '../models/request-status.model';
+import { userName, getToken } from '../login';
+import { Comment } from '../models/comment.model';
 
 
 
@@ -17,6 +19,8 @@ export class ArticleContainer extends connect(store)(LitElement) {
   @property() private article: Article | undefined;
   @property() private articleIsLoading = false;
   @property() private comments: Comment[] = [];
+  @property() private userName = '';
+  @property() private token = '';
 
   createRenderRoot() {
     return this;
@@ -58,7 +62,11 @@ export class ArticleContainer extends connect(store)(LitElement) {
 
               ${this.comments.map((comment: Comment) => {
                   return html`
-                    <app-article-comment .comment=${comment}></app-article-comment>
+                    <app-article-comment
+                      .comment=${comment}
+                      .isOwner=${(this.userName === comment.author.username)}
+                      @delete-comment="${() => this.deleteComment(this.article!.slug, comment.id, this.token)}">
+                    </app-article-comment>
                   `;
                 })}
 
@@ -76,8 +84,10 @@ export class ArticleContainer extends connect(store)(LitElement) {
     if (!articleState) { return; }
     articleState.articleRequestStatus === RequestStatus.fetching ? this.articleIsLoading = true : this.articleIsLoading = false;
     articleState.article ? this.article = articleState.article : this.article = undefined;
-
     articleState.comments ? this.comments = articleState.comments : this.comments = [];
+
+    this.userName = userName(state);
+    this.token = getToken(state);
 
   }
 
@@ -90,5 +100,9 @@ export class ArticleContainer extends connect(store)(LitElement) {
     if (changedProps.has('article')) {
       if (this.article) { store.dispatch(fetchComments(this.article.slug)); }
     }
+  }
+
+  deleteComment(articleId: string, commentId: number, token: string) {
+    store.dispatch(deleteComment(articleId, commentId, token));
   }
 }
