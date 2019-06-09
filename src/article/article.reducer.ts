@@ -1,24 +1,29 @@
 import { Reducer } from 'redux';
 import {
     LOAD_ARTICLE_REQUESTED, LOAD_ARTICLE_COMPLETED, LOAD_ARTICLE_FAILED,
-    LOAD_COMMENTS_REQUESTED, LOAD_COMMENTS_FAILED, LOAD_COMMENTS_COMPLETED, DELETE_COMMENT_COMPLETED
+    LOAD_COMMENTS_REQUESTED, LOAD_COMMENTS_FAILED, LOAD_COMMENTS_COMPLETED,
+    DELETE_COMMENT_COMPLETED,
+    ADD_COMMENT_REQUESTED, ADD_COMMENT_FAILED, ADD_COMMENT_COMPLETED
 } from './article.actions';
 import { RootAction, RootState } from '../store';
-import { Article } from '../models';
+import { Article, Errors } from '../models';
 import { RequestStatus } from '../models/request-status.model';
 import { Comment } from '../models/comment.model';
 
 export interface ArticleState {
     article?: Article;
     articleRequestStatus: RequestStatus;
-    comments?: Comment[];
+    comments: Comment[];
     commentsRequestStatus: RequestStatus;
+    addCommentRequestStatus: RequestStatus;
+    errors?: Errors;
 }
 
 const initialState: ArticleState = {
     articleRequestStatus: RequestStatus.notStarted,
     commentsRequestStatus:  RequestStatus.notStarted,
-    // comments: []
+    addCommentRequestStatus:  RequestStatus.notStarted,
+    comments: []
 };
 
 const article: Reducer<ArticleState, RootAction> = (state = initialState, action) => {
@@ -58,14 +63,30 @@ const article: Reducer<ArticleState, RootAction> = (state = initialState, action
         case DELETE_COMMENT_COMPLETED:
             return {
                 ...state,
-                // tslint:disable-next-line:no-non-null-assertion
-                comments: state.comments!.filter((comment) =>  {
+                comments: state.comments.filter((comment) =>  {
                     if (comment.id === action.commentId) {
                         return;
                     } else {
                         return comment;
                     }
                 })
+            };
+        case ADD_COMMENT_REQUESTED:
+            return {
+                ...state,
+                addCommentRequestStatus: RequestStatus.fetching
+            };
+        case ADD_COMMENT_FAILED:
+            return {
+                ...state,
+                addCommentRequestStatus: RequestStatus.failed,
+                errors: action.errors
+            };
+        case ADD_COMMENT_COMPLETED:
+            return {
+                ...state,
+                addCommentRequestStatus: RequestStatus.completed,
+                comments: [action.comment, ...state.comments]
             };
         default:
             return state;

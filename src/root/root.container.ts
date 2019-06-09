@@ -40,7 +40,7 @@ export class AppRoot extends connect(store)(LitElement) {
         ${this._route === RootRoute.register ? html`<app-registration></app-registration>` : '' }
         ${this._route === RootRoute.login ? html`<app-login></app-login>` : '' }
       </main>
-
+      ${this.Footer()}
     `;
   }
 
