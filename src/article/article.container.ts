@@ -10,7 +10,8 @@ import { RequestStatus } from '../models/request-status.model';
 import { userName, getToken, getUser } from '../login';
 import { Comment } from '../models/comment.model';
 import { User } from '../models/user.model';
-
+import * as marked from 'marked';
+import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
 
 
 
@@ -50,7 +51,7 @@ export class ArticleContainer extends connect(store)(LitElement) {
           <div class="container page">
             <div class="row article-content">
               <div class="col-md-12">
-                <div>${this.article.body}</div>
+                <div>${unsafeHTML(marked(this.article.body, { sanitize: true }))}</div>
                 <ul class="tag-list">
                   ${repeat(this.article.tagList, (tag: string) => html`
                   <li class="tag-default tag-pill tag-outline">${tag}</li>
