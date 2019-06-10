@@ -10,7 +10,7 @@
     "start": "webpack-dev-server --open --mode development",
     "build": "rm -rf dist && webpack --config webpack.config.js",
     "serve": "prpl-server --root dist --port 3000",
-    "serve:docker": "prpl-server --host 0.0.0.0 --root dist --port 3000 --cache-control=max-age=360000 --https-redirect"
+    "serve:docker": "prpl-server --host 0.0.0.0 --root dist --port 3000 --cache-control=max-age=8640000 --https-redirect"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.4",
