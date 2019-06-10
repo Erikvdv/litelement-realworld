@@ -9,7 +9,8 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "build": "rm -rf dist && webpack --config webpack.config.js",
-    "serve": "prpl-server --root dist --port 3000"
+    "serve": "prpl-server --root dist --port 3000",
+    "serve:docker": "prpl-server --host 0.0.0.0 --root dist --port 3000"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.4",
