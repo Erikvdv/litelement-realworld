@@ -13,6 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const {BaseHrefWebpackPlugin} = require('base-href-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -27,7 +28,11 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', {targets: {ie: '11'}}]
+              ['@babel/preset-env', {
+                "targets": {
+                  "esmodules": true
+                }
+              }]
             ],
             plugins: ['@babel/plugin-syntax-dynamic-import']
           }
@@ -54,6 +59,7 @@ module.exports = {
       hash: true,
       template: 'index.html',
     }),
+    new BaseHrefWebpackPlugin({ baseHref: '/modern/' }),
     new WorkboxWebpackPlugin.GenerateSW({
       include: ['index.html', 'manifest.json', /\.js$/],
       exclude: [/\/@webcomponents\/webcomponentsjs\//],
@@ -97,6 +103,7 @@ module.exports = {
     ],
   },
   output: {
+      path: __dirname + "/dist/modern",
       filename: '[name].[contenthash].js'
       }
 };
