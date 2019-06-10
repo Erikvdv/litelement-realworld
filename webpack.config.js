@@ -51,7 +51,8 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({
       chunksSortMode: 'none',
-      template: 'index.html'
+      hash: true,
+      template: 'index.html',
     }),
     new WorkboxWebpackPlugin.GenerateSW({
       include: ['index.html', 'manifest.json', /\.js$/],
@@ -94,5 +95,8 @@ module.exports = {
         },
       }),
     ],
-  }
+  },
+  output: {
+      filename: '[name].[contenthash].js'
+      }
 };
