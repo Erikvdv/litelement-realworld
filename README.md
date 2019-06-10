@@ -6,6 +6,8 @@
 
 # LitElement Real World app
 
+### [Demo](https://lit-realworld.azurewebsites.net/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+
 This LitElement Real World app is based on [PWA Starter Kit](https://pwa-starter-kit.polymer-project.org/) sample app.
 
 The code is written in Typescript and the build is done with Webpack. 
