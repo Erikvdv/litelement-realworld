@@ -28,6 +28,9 @@ import { RegistrationState } from './register/registration.reducers';
 import { RegistrationAction } from './register/registration.actions';
 import { LoginState } from './login/login.reducer';
 import { LoginAction } from './login/login.actions';
+import { EditorAction } from './editor';
+import { EditorState } from './editor/editor.reducer';
+
 
 
 // Overall state extends static states and partials lazy states.
@@ -37,11 +40,12 @@ export interface RootState {
   home?: HomeState;
   articleList?: ArticleListState;
   article?: ArticleState;
+  editor?: EditorState;
   registration?: RegistrationState;
 }
 
 export type RootAction = AppAction | HomeAction | ArticleListAction | ArticleAction
-| RegistrationAction | LoginAction;
+| RegistrationAction | LoginAction | EditorAction;
 
 // Sets up a Chrome extension for time travel debugging.
 // See https://github.com/zalmoxisus/redux-devtools-extension for more information.

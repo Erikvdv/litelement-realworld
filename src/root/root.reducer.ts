@@ -22,7 +22,8 @@ export enum RootRoute {
   home = 'home',
   article = 'article',
   register = 'register',
-  login = 'login'
+  login = 'login',
+  editor = 'editor'
 }
 
 

@@ -18,7 +18,7 @@ export class AppRoot extends connect(store)(LitElement) {
   appTitle = '';
 
   @property()
-  private _route = '';
+  private route = '';
 
   @property()
   private username = '';
@@ -35,10 +35,11 @@ export class AppRoot extends connect(store)(LitElement) {
       </app-header>
       <!-- Main content -->
       <main role="main" class="main-content">
-        ${this._route === RootRoute.home ? html`<app-home></app-home>` : ''}
-        ${this._route === RootRoute.article ? html`<app-article></app-article>` : '' }
-        ${this._route === RootRoute.register ? html`<app-registration></app-registration>` : '' }
-        ${this._route === RootRoute.login ? html`<app-login></app-login>` : '' }
+        ${this.route === RootRoute.home ? html`<app-home></app-home>` : ''}
+        ${this.route === RootRoute.article ? html`<app-article></app-article>` : '' }
+        ${this.route === RootRoute.register ? html`<app-registration></app-registration>` : '' }
+        ${this.route === RootRoute.login ? html`<app-login></app-login>` : '' }
+        ${this.route === RootRoute.editor ? html`<app-editor></app-editor>` : '' }
       </main>
       ${this.Footer()}
     `;
@@ -72,7 +73,7 @@ export class AppRoot extends connect(store)(LitElement) {
 
   protected updated(changedProps: PropertyValues) {
     if (changedProps.has('_route')) {
-      const pageTitle = this.appTitle + ' - ' + this._route;
+      const pageTitle = this.appTitle + ' - ' + this.route;
       updateMetadata({
         title: pageTitle,
         description: pageTitle
@@ -81,7 +82,7 @@ export class AppRoot extends connect(store)(LitElement) {
   }
 
   stateChanged(state: RootState) {
-    this._route = state.app.route;
+    this.route = state.app.route;
 
     this.username = userName(state);
   }

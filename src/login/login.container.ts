@@ -5,7 +5,7 @@ import { store, RootState } from '../store';
 import { connect } from 'pwa-helpers/connect-mixin';
 
 import { Errors } from '../models/errors.model';
-import '../shared/list-errors/list-errors.component';
+import('../shared/list-errors/list-errors.component');
 
 import { loginUser } from './login.actions';
 import { UserLogin } from './login.model';
@@ -14,7 +14,7 @@ import { loginStateSelector } from '.';
 
 
 @customElement('app-login')
-export class AppLoginContainer extends connect(store)(LitElement) {
+export class LoginContainer extends connect(store)(LitElement) {
 
   @property() private formIsValid = false;
   @property() private userLogin: UserLogin = {email: '', password: ''};

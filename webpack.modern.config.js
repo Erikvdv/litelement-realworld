@@ -59,7 +59,7 @@ module.exports = {
       hash: true,
       template: 'index.html',
     }),
-    new BaseHrefWebpackPlugin({ baseHref: '/modern/' }),
+    new BaseHrefWebpackPlugin({ baseHref: process.env.NODE_ENV == 'development'?'/':'/modern/'  }),
     new WorkboxWebpackPlugin.GenerateSW({
       include: ['index.html', 'manifest.json', /\.js$/],
       exclude: [/\/@webcomponents\/webcomponentsjs\//],

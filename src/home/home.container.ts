@@ -73,7 +73,6 @@ export class HomeContainer extends connect(store)(LitElement) {
     if (!homeState) { return; }
     this.tags = homeState.tags;
     this.articleListQuery = homeState.articleListQuery;
-    console.log('stateChanged: ' + JSON.stringify(this.articleListQuery));
     homeState.isFetching ? this.tagsIsLoading = true : this.tagsIsLoading = false;
 
     this.isLoggedIn = isLoggedIn(state);

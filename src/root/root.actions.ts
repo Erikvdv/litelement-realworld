@@ -36,6 +36,13 @@ const goToArticlePage: ActionCreator<ThunkResult> = (articleId: string) => (disp
   });
 };
 
+const goToEditorPage: ActionCreator<ThunkResult> = () => (dispatch) => {
+  import('../editor').then(() => {
+    console.log('editor route');
+    dispatch(updatePage(RootRoute.editor));
+  });
+};
+
 const goToRegistrationPage: ActionCreator<ThunkResult> = () => (dispatch) => {
   import('../register').then(() => {
     dispatch(updatePage(RootRoute.register));
@@ -52,6 +59,7 @@ export const navigate: ActionCreator<ThunkResult> = () => (dispatch) => {
   page.base('');
   page('/home', () => dispatch(goToHomePage()));
   page('/article/:id', (ctx) => dispatch(goToArticlePage(ctx.params.id)));
+  page('/editor', () => dispatch(goToEditorPage()));
   page('/register', () => dispatch(goToRegistrationPage()));
   page('/login', () => dispatch(goToLoginPage()));
   page('*', () => dispatch(goToHomePage()));

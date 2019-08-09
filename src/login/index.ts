@@ -1,13 +1,13 @@
 import { store, RootState } from '../store';
 import login from './login.reducer';
 import { loginRefresh } from './login.actions';
-import { AppLoginContainer } from './login.container';
+import { LoginContainer } from './login.container';
 
 store.addReducers({
     login
 });
 
-export { loginRefresh, AppLoginContainer };
+export { loginRefresh, LoginContainer };
 export const isLoggedIn = (state: RootState) => state.login.isLoggedIn;
 export const getToken = (state: RootState) => state.login.user.token;
 export const userName = (state: RootState) => state.login.user.username;
