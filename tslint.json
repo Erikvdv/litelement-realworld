@@ -97,5 +97,5 @@
         "no-focused-tests": true,
         "no-disabled-tests": false
     },
-    "extends": ["tslint:latest", "tslint-config-prettier"]
+    "extends": ["tslint-config-prettier"]
 }

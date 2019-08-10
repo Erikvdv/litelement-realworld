@@ -111,6 +111,7 @@ export class EditorContainer extends connect(store)(LitElement) {
     }
 
     submit() {
+        // tslint:disable-next-line:no-non-null-assertion
         store.dispatch(addArticle(this.article, this.user!.token))
     }
 }

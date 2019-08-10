@@ -93,6 +93,7 @@ export class ArticleContainer extends connect(store)(LitElement) {
                                             comment.author.username}
                                         @delete-comment="${() =>
                                             this.deleteComment(
+                                                // tslint:disable-next-line:no-non-null-assertion
                                                 this.article!.slug,
                                                 comment.id,
                                                 this.token,
@@ -190,6 +191,7 @@ ${this.newComment}</textarea
                                     @click="${(ev: Event) => {
                                         ev.preventDefault()
                                         this.submitComment(
+                                            // tslint:disable-next-line:no-non-null-assertion
                                             this.article!.slug,
                                             this.newComment,
                                             this.token,
