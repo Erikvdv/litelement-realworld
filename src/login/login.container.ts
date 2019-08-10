@@ -1,23 +1,23 @@
-import { html, customElement, LitElement, property } from 'lit-element'
+import { html, customElement, LitElement, property } from 'lit-element';
 
-import { store, RootState } from '../store'
-import { connect } from 'pwa-helpers/connect-mixin'
+import { store, RootState } from '../store';
+import { connect } from 'pwa-helpers/connect-mixin';
 
-import { Errors } from '../models/errors.model'
-import('../shared/list-errors/list-errors.component')
+import { Errors } from '../models/errors.model';
+import('../shared/list-errors/list-errors.component');
 
-import { loginUser } from './login.actions'
-import { UserLogin } from './login.model'
-import { loginStateSelector } from '.'
+import { loginUser } from './login.actions';
+import { UserLogin } from './login.model';
+import { loginStateSelector } from '.';
 
 @customElement('app-login')
 export class LoginContainer extends connect(store)(LitElement) {
-  @property() private formIsValid = false
-  @property() private userLogin: UserLogin = { email: '', password: '' }
-  @property() private errors?: Errors
+  @property() private formIsValid = false;
+  @property() private userLogin: UserLogin = { email: '', password: '' };
+  @property() private errors?: Errors;
 
   createRenderRoot() {
-    return this
+    return this;
   }
 
   protected render() {
@@ -50,8 +50,8 @@ export class LoginContainer extends connect(store)(LitElement) {
                       @keyup="${(ev: KeyboardEvent) => {
                         this.userLogin.email = (<HTMLInputElement>(
                           ev.target
-                        )).value
-                        this.validateForm()
+                        )).value;
+                        this.validateForm();
                       }}"
                     />
                   </fieldset>
@@ -63,8 +63,8 @@ export class LoginContainer extends connect(store)(LitElement) {
                       @keyup="${(ev: KeyboardEvent) => {
                         this.userLogin.password = (<HTMLInputElement>(
                           ev.target
-                        )).value
-                        this.validateForm()
+                        )).value;
+                        this.validateForm();
                       }}"
                     />
                   </fieldset>
@@ -73,8 +73,8 @@ export class LoginContainer extends connect(store)(LitElement) {
                     type="submit"
                     ?disabled=${!this.formIsValid}
                     @click="${(ev: Event) => {
-                      ev.preventDefault()
-                      this.submit()
+                      ev.preventDefault();
+                      this.submit();
                     }}"
                   >
                     Sign in
@@ -85,21 +85,21 @@ export class LoginContainer extends connect(store)(LitElement) {
           </div>
         </div>
       </div>
-    `
+    `;
   }
 
   stateChanged(state: RootState) {
-    const loginState = loginStateSelector(state)
-    this.errors = loginState.errors
+    const loginState = loginStateSelector(state);
+    this.errors = loginState.errors;
   }
 
   validateForm() {
     this.userLogin.email && this.userLogin.password
       ? (this.formIsValid = true)
-      : (this.formIsValid = false)
+      : (this.formIsValid = false);
   }
 
   submit() {
-    store.dispatch(loginUser(this.userLogin))
+    store.dispatch(loginUser(this.userLogin));
   }
 }

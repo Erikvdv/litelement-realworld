@@ -8,12 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { Reducer } from 'redux'
-import { UPDATE_PAGE } from './root.actions'
-import { RootAction } from '../store'
+import { Reducer } from 'redux';
+import { UPDATE_PAGE } from './root.actions';
+import { RootAction } from '../store';
 
 export interface AppState {
-  route: RootRoute
+  route: RootRoute;
 }
 
 export enum RootRoute {
@@ -26,7 +26,7 @@ export enum RootRoute {
 
 const INITIAL_STATE: AppState = {
   route: RootRoute.home,
-}
+};
 
 const appRoot: Reducer<AppState, RootAction> = (
   state = INITIAL_STATE,
@@ -37,10 +37,10 @@ const appRoot: Reducer<AppState, RootAction> = (
       return {
         ...state,
         route: action.route,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default appRoot
+export default appRoot;

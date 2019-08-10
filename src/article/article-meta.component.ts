@@ -1,12 +1,12 @@
-import { customElement, html, LitElement, property } from 'lit-element'
-import { Article } from '../models'
+import { customElement, html, LitElement, property } from 'lit-element';
+import { Article } from '../models';
 
 @customElement('app-article-meta')
 export class AppArticleMetaComponent extends LitElement {
-  @property({ type: Object }) article: Article | undefined
+  @property({ type: Object }) article: Article | undefined;
 
   createRenderRoot() {
-    return this
+    return this;
   }
 
   protected render() {
@@ -29,9 +29,9 @@ export class AppArticleMetaComponent extends LitElement {
             </span>
           </div>
         </div>
-      `
+      `;
     } else {
-      return
+      return;
     }
   }
 }

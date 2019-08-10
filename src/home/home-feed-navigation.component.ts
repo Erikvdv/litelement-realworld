@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from 'lit-element'
+import { customElement, html, LitElement, property } from 'lit-element';
 
 export enum SelectedTab {
   all = 'ALL',
@@ -7,23 +7,23 @@ export enum SelectedTab {
 }
 
 export interface HomeFeedNavigationInput {
-  isLoggedIn: boolean
-  selectedTab: SelectedTab
-  selectedTag?: string
+  isLoggedIn: boolean;
+  selectedTab: SelectedTab;
+  selectedTag?: string;
 }
 
 @customElement('app-home-feed-navigation')
 export class HomeFeedNavigationComponent extends LitElement {
   @property()
-  input: HomeFeedNavigationInput | undefined
+  input: HomeFeedNavigationInput | undefined;
 
   createRenderRoot() {
-    return this
+    return this;
   }
 
   protected render() {
     if (!this.input) {
-      return
+      return;
     }
 
     return html`
@@ -33,7 +33,7 @@ export class HomeFeedNavigationComponent extends LitElement {
           ${this.TagFeedTab(this.input)}
         </ul>
       </div>
-    `
+    `;
   }
 
   YourFeedTab = (input: HomeFeedNavigationInput) => {
@@ -48,7 +48,7 @@ export class HomeFeedNavigationComponent extends LitElement {
           Your Feed
         </a>
       </li>
-    `
+    `;
   }
 
   GlobalFeedTab = (input: HomeFeedNavigationInput) => {
@@ -63,12 +63,12 @@ export class HomeFeedNavigationComponent extends LitElement {
           Global Feed
         </a>
       </li>
-    `
+    `;
   }
 
   TagFeedTab = (input: HomeFeedNavigationInput) => {
     if (input.selectedTab !== SelectedTab.tag) {
-      return
+      return;
     }
     return html`
       <li class="nav-item" @click=${() => this.tabSelected(SelectedTab.tag)}>
@@ -76,11 +76,11 @@ export class HomeFeedNavigationComponent extends LitElement {
           <i class="ion-pound"></i> ${input.selectedTag}
         </a>
       </li>
-    `
+    `;
   }
 
   tabSelected(tab: SelectedTab) {
-    const event = new CustomEvent('tab-selected', { detail: { tab } })
-    this.dispatchEvent(event)
+    const event = new CustomEvent('tab-selected', { detail: { tab } });
+    this.dispatchEvent(event);
   }
 }

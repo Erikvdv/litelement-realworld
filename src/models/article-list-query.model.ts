@@ -4,7 +4,7 @@ export enum ArticleListType {
 }
 
 export interface ArticleListQuery {
-  type: ArticleListType
+  type: ArticleListType;
   filters: {
     tag?: string
     author?: string
@@ -12,5 +12,5 @@ export interface ArticleListQuery {
     limit: number
     offset?: number
     [key: string]: string | number | undefined
-  }
+  };
 }
