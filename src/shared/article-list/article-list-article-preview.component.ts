@@ -1,13 +1,13 @@
-import { LitElement, html, property, customElement } from 'lit-element'
-import { Article } from '../../models'
-import { repeat } from 'lit-html/directives/repeat'
+import { LitElement, html, property, customElement } from 'lit-element';
+import { Article } from '../../models';
+import { repeat } from 'lit-html/directives/repeat';
 
 @customElement('app-article-list-article-preview')
 export class ArticleListArticlePreviewComponent extends LitElement {
-    @property() article: Article | undefined
+    @property() article: Article | undefined;
 
     createRenderRoot() {
-        return this
+        return this;
     }
 
     protected render() {
@@ -17,9 +17,9 @@ export class ArticleListArticlePreviewComponent extends LitElement {
                     ${this.ArticleMeta(this.article)}
                     ${this.ArticleSummary(this.article)}
                 </div>
-            `
+            `;
         } else {
-            return
+            return;
         }
     }
 
@@ -59,7 +59,7 @@ export class ArticleListArticlePreviewComponent extends LitElement {
                     </button>
                 </div>
             </div>
-        `
+        `;
     }
 
     ArticleSummary = (article: Article) => {
@@ -79,7 +79,7 @@ export class ArticleListArticlePreviewComponent extends LitElement {
                     )}
                 </ul>
             </a>
-        `
+        `;
     }
 
     markFavorite(slug: string) {
@@ -87,8 +87,8 @@ export class ArticleListArticlePreviewComponent extends LitElement {
             detail: {
                 slug: slug,
             },
-        })
-        this.dispatchEvent(event)
+        });
+        this.dispatchEvent(event);
     }
 
     deleteFavorite(slug: string) {
@@ -96,7 +96,7 @@ export class ArticleListArticlePreviewComponent extends LitElement {
             detail: {
                 slug: slug,
             },
-        })
-        this.dispatchEvent(event)
+        });
+        this.dispatchEvent(event);
     }
 }

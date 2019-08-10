@@ -4,43 +4,43 @@ import {
     LitElement,
     property,
     PropertyValues,
-} from 'lit-element'
-import { repeat } from 'lit-html/directives/repeat'
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js'
-import * as marked from 'marked'
-import { connect } from 'pwa-helpers/connect-mixin'
-import { getToken, getUser, userName } from '../login'
-import { Article, Errors } from '../models'
-import { Comment } from '../models/comment.model'
-import { RequestStatus } from '../models/request-status.model'
-import { User } from '../models/user.model'
-import { RootState, store } from '../store'
-import './article-meta.component'
-import { addComment, deleteComment, fetchComments } from './article.actions'
-import { articleStateSelector } from './article.reducer'
+} from 'lit-element';
+import { repeat } from 'lit-html/directives/repeat';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
+import * as marked from 'marked';
+import { connect } from 'pwa-helpers/connect-mixin';
+import { getToken, getUser, userName } from '../login';
+import { Article, Errors } from '../models';
+import { Comment } from '../models/comment.model';
+import { RequestStatus } from '../models/request-status.model';
+import { User } from '../models/user.model';
+import { RootState, store } from '../store';
+import './article-meta.component';
+import { addComment, deleteComment, fetchComments } from './article.actions';
+import { articleStateSelector } from './article.reducer';
 
 @customElement('app-article')
 export class ArticleContainer extends connect(store)(LitElement) {
-    @property() private article: Article | undefined
-    @property() private articleIsLoading = false
-    @property() private comments: Comment[] = []
-    @property() private userName = ''
-    @property() private token = ''
-    @property() private user: User | undefined
-    @property() private newComment = ''
-    @property() private errors?: Errors
-    @property() private addCommentStatus = RequestStatus.notStarted
+    @property() private article: Article | undefined;
+    @property() private articleIsLoading = false;
+    @property() private comments: Comment[] = [];
+    @property() private userName = '';
+    @property() private token = '';
+    @property() private user: User | undefined;
+    @property() private newComment = '';
+    @property() private errors?: Errors;
+    @property() private addCommentStatus = RequestStatus.notStarted;
 
     createRenderRoot() {
-        return this
+        return this;
     }
 
     protected render() {
         if (this.article === undefined) {
-            return
+            return;
         }
         if (this.articleIsLoading) {
-            return
+            return;
         }
         return html`
             <div class="article-page">
@@ -100,55 +100,55 @@ export class ArticleContainer extends connect(store)(LitElement) {
                                             )}"
                                     >
                                     </app-article-comment>
-                                `
+                                `;
                             })}
                         </div>
                     </div>
                 </div>
             </div>
-        `
+        `;
     }
 
     stateChanged(state: RootState) {
-        const articleState = articleStateSelector(state)
+        const articleState = articleStateSelector(state);
 
         if (!articleState) {
-            return
+            return;
         }
         articleState.articleRequestStatus === RequestStatus.fetching
             ? (this.articleIsLoading = true)
-            : (this.articleIsLoading = false)
+            : (this.articleIsLoading = false);
         articleState.article
             ? (this.article = articleState.article)
-            : (this.article = undefined)
+            : (this.article = undefined);
         articleState.comments
             ? (this.comments = articleState.comments)
-            : (this.comments = [])
+            : (this.comments = []);
         articleState.errors
             ? (this.errors = articleState.errors)
-            : (this.errors = undefined)
-        this.addCommentStatus = articleState.addCommentRequestStatus
-        this.user = getUser(state)
-        this.userName = userName(state)
-        this.token = getToken(state)
+            : (this.errors = undefined);
+        this.addCommentStatus = articleState.addCommentRequestStatus;
+        this.user = getUser(state);
+        this.userName = userName(state);
+        this.token = getToken(state);
     }
 
     protected firstUpdated() {
         if (this.article) {
-            store.dispatch(fetchComments(this.article.slug))
+            store.dispatch(fetchComments(this.article.slug));
         }
     }
 
     protected updated(changedProps: PropertyValues) {
         if (changedProps.has('article')) {
             if (this.article) {
-                store.dispatch(fetchComments(this.article.slug))
+                store.dispatch(fetchComments(this.article.slug));
             }
         }
     }
 
     deleteComment(articleId: string, commentId: number, token: string) {
-        store.dispatch(deleteComment(articleId, commentId, token))
+        store.dispatch(deleteComment(articleId, commentId, token));
     }
 
     PostCommentBox = (user?: User) => {
@@ -174,7 +174,7 @@ export class ArticleContainer extends connect(store)(LitElement) {
                                     .value=${this.newComment}
                                     rows="3"
                                     @keyup="${(ev: KeyboardEvent) => {
-                                        this.newComment = (ev.target as HTMLInputElement).value
+                                        this.newComment = (ev.target as HTMLInputElement).value;
                                     }}"
                                 >
 ${this.newComment}</textarea
@@ -189,13 +189,13 @@ ${this.newComment}</textarea
                                     class="btn btn-sm btn-primary"
                                     type="submit"
                                     @click="${(ev: Event) => {
-                                        ev.preventDefault()
+                                        ev.preventDefault();
                                         this.submitComment(
                                             // tslint:disable-next-line:no-non-null-assertion
                                             this.article!.slug,
                                             this.newComment,
                                             this.token,
-                                        )
+                                        );
                                     }}"
                                 >
                                     Post Comment
@@ -204,7 +204,7 @@ ${this.newComment}</textarea
                         </fieldset>
                     </form>
                 </div>
-            `
+            `;
         } else {
             return html`
                 <div>
@@ -212,12 +212,12 @@ ${this.newComment}</textarea
                     <a href="/register">sign up</a> to add comments on this
                     article.
                 </div>
-            `
+            `;
         }
     }
 
     submitComment(articleSlug: string, commentBody: string, token: string) {
-        store.dispatch(addComment(articleSlug, commentBody, token))
-        this.newComment = ''
+        store.dispatch(addComment(articleSlug, commentBody, token));
+        this.newComment = '';
     }
 }

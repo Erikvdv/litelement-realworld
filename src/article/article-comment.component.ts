@@ -1,13 +1,13 @@
-import { customElement, html, LitElement, property } from 'lit-element'
-import { Comment } from '../models/comment.model'
+import { customElement, html, LitElement, property } from 'lit-element';
+import { Comment } from '../models/comment.model';
 
 @customElement('app-article-comment')
 export class AppArticleCommentComponent extends LitElement {
-    @property() comment: Comment | undefined
-    @property() isOwner = false
+    @property() comment: Comment | undefined;
+    @property() isOwner = false;
 
     createRenderRoot() {
-        return this
+        return this;
     }
 
     protected render() {
@@ -47,14 +47,14 @@ export class AppArticleCommentComponent extends LitElement {
                         </span>
                     </div>
                 </div>
-            `
+            `;
         } else {
-            return
+            return;
         }
     }
 
     deleteClicked() {
-        const event = new CustomEvent('delete-comment')
-        this.dispatchEvent(event)
+        const event = new CustomEvent('delete-comment');
+        this.dispatchEvent(event);
     }
 }
