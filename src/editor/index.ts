@@ -1,10 +1,10 @@
-import { EditorAction } from './editor.actions';
-import { store } from '../store';
-import editor from './editor.reducer';
-import { EditorContainer } from './editor.container';
+import { store } from '../store'
+import { EditorAction } from './editor.actions'
+import { EditorContainer } from './editor.container'
+import editor from './editor.reducer'
 
 store.addReducers({
-    editor
-});
+    editor,
+})
 
-export {EditorAction, EditorContainer};
+export { EditorAction, EditorContainer }
