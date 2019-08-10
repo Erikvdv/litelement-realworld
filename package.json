@@ -10,7 +10,8 @@
     "start": "webpack-dev-server --config webpack.modern.config.js --open --mode development",
     "build": "rm -rf dist && webpack --config webpack.modern.config.js && webpack --config webpack.fallback.config.js",
     "serve": "prpl-server --root dist --port 3000 --config prpl-config.json",
-    "serve:docker": "prpl-server --host 0.0.0.0 --root dist --port 3000 --cache-control=max-age=8640000 --config prpl-config.json --https-redirect"
+    "serve:docker": "prpl-server --host 0.0.0.0 --root dist --port 3000 --cache-control=max-age=8640000 --config prpl-config.json --https-redirect",
+    "prettier": "prettier --write src/**/*.ts && tslint --project . --fix"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.4",
