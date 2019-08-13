@@ -9,9 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { Reducer } from 'redux';
-import {
-  UPDATE_PAGE
-} from './root.actions';
+import { UPDATE_PAGE } from './root.actions';
 import { RootAction } from '../store';
 
 export interface AppState {
@@ -23,20 +21,22 @@ export enum RootRoute {
   article = 'article',
   register = 'register',
   login = 'login',
-  editor = 'editor'
+  editor = 'editor',
 }
 
-
 const INITIAL_STATE: AppState = {
-  route: RootRoute.home
+  route: RootRoute.home,
 };
 
-const appRoot: Reducer<AppState, RootAction> = (state = INITIAL_STATE, action) => {
+const appRoot: Reducer<AppState, RootAction> = (
+  state = INITIAL_STATE,
+  action,
+) => {
   switch (action.type) {
     case UPDATE_PAGE:
       return {
         ...state,
-        route: action.route
+        route: action.route,
       };
     default:
       return state;

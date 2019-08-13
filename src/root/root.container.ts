@@ -1,4 +1,10 @@
-import { LitElement, html, property, PropertyValues, customElement } from 'lit-element';
+import {
+  LitElement,
+  html,
+  property,
+  PropertyValues,
+  customElement,
+} from 'lit-element';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { updateMetadata } from 'pwa-helpers/metadata';
 import { installRouter } from 'pwa-helpers/router';
@@ -11,10 +17,9 @@ import { UserResponse } from '../models/user.model';
 import { loginRefresh } from '../login/login.actions';
 import { userName } from '../login';
 
-
 @customElement('app-root')
 export class AppRoot extends connect(store)(LitElement) {
-  @property({type: String})
+  @property({ type: String })
   appTitle = '';
 
   @property()
@@ -31,15 +36,34 @@ export class AppRoot extends connect(store)(LitElement) {
     return html`
       <!-- Header -->
       <app-header appName="${this.appTitle}" .currentUser=${this.username}>
-
       </app-header>
       <!-- Main content -->
       <main role="main" class="main-content">
-        ${this.route === RootRoute.home ? html`<app-home></app-home>` : ''}
-        ${this.route === RootRoute.article ? html`<app-article></app-article>` : '' }
-        ${this.route === RootRoute.register ? html`<app-registration></app-registration>` : '' }
-        ${this.route === RootRoute.login ? html`<app-login></app-login>` : '' }
-        ${this.route === RootRoute.editor ? html`<app-editor></app-editor>` : '' }
+        ${this.route === RootRoute.home
+          ? html`
+              <app-home></app-home>
+            `
+          : ''}
+        ${this.route === RootRoute.article
+          ? html`
+              <app-article></app-article>
+            `
+          : ''}
+        ${this.route === RootRoute.register
+          ? html`
+              <app-registration></app-registration>
+            `
+          : ''}
+        ${this.route === RootRoute.login
+          ? html`
+              <app-login></app-login>
+            `
+          : ''}
+        ${this.route === RootRoute.editor
+          ? html`
+              <app-editor></app-editor>
+            `
+          : ''}
       </main>
       ${this.Footer()}
     `;
@@ -49,14 +73,14 @@ export class AppRoot extends connect(store)(LitElement) {
     return html`
       <footer>
         <div class="container">
-            <a class="logo-font" routerLink="/">conduit</a>
-            <span class="attribution">
-            &copy; ${ (new Date()).getFullYear() }.
-            An interactive learning project from <a href="https://thinkster.io">Thinkster</a>.
-            Code licensed under MIT.
-            </span>
+          <a class="logo-font" routerLink="/">conduit</a>
+          <span class="attribution">
+            &copy; ${new Date().getFullYear()}. An interactive learning project
+            from <a href="https://thinkster.io">Thinkster</a>. Code licensed
+            under MIT.
+          </span>
         </div>
-        </footer>
+      </footer>
     `;
   }
 
@@ -76,7 +100,7 @@ export class AppRoot extends connect(store)(LitElement) {
       const pageTitle = this.appTitle + ' - ' + this.route;
       updateMetadata({
         title: pageTitle,
-        description: pageTitle
+        description: pageTitle,
       });
     }
   }

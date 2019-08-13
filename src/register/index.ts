@@ -3,9 +3,10 @@ import registration from './registration.reducers';
 import { RegistrationContainer } from './registration.container';
 
 store.addReducers({
-    registration
+  registration,
 });
 
-export const registrationStateSelector = (state: RootState) => state.registration;
+export const registrationStateSelector = (state: RootState) =>
+  state.registration;
 
 export { RegistrationContainer };

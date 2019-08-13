@@ -6,8 +6,7 @@ import('../shared/header/header.component');
 // import('../shared/footer/footer.component');
 
 store.addReducers({
-    login
+  login,
 });
 
 export { AppRoot };
-

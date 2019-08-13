@@ -5,10 +5,9 @@ import { HomeTagsComponent } from './home-tags.component';
 import { HomeFeedNavigationComponent } from './home-feed-navigation.component';
 import { HomeBannerComponent } from './home-banner.component';
 
-
 store.addReducers({
-    home
-  });
+  home,
+});
 
 import('../shared/article-list');
 
@@ -16,5 +15,5 @@ export {
   HomeContainer,
   HomeBannerComponent,
   HomeTagsComponent,
-  HomeFeedNavigationComponent
+  HomeFeedNavigationComponent,
 };

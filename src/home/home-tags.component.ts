@@ -31,23 +31,24 @@ export class HomeTagsComponent extends LitElement {
       return html`
         ${tags.map(tag => {
           return html`
-              <a class="tag-default tag-pill" @click=${() => this.tagSelected(tag)}>
-                ${tag}
-              </a>
-            `;
-          })}
+            <a
+              class="tag-default tag-pill"
+              @click=${() => this.tagSelected(tag)}
+            >
+              ${tag}
+            </a>
+          `;
+        })}
       `;
     }
   }
 
-
   tagSelected(tag: string) {
     const event = new CustomEvent('tag-selected', {
       detail: {
-        tag: tag
-      }
+        tag: tag,
+      },
     });
     this.dispatchEvent(event);
   }
-
 }

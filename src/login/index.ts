@@ -4,7 +4,7 @@ import { loginRefresh } from './login.actions';
 import { LoginContainer } from './login.container';
 
 store.addReducers({
-    login
+  login,
 });
 
 export { loginRefresh, LoginContainer };
@@ -13,4 +13,3 @@ export const getToken = (state: RootState) => state.login.user.token;
 export const userName = (state: RootState) => state.login.user.username;
 export const getUser = (state: RootState) => state.login.user;
 export const loginStateSelector = (state: RootState) => state.login;
-

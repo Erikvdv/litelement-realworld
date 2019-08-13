@@ -1,9 +1,9 @@
-import { LitElement, html, property, customElement } from 'lit-element';
+import { customElement, html, LitElement, property } from 'lit-element';
 
 export enum SelectedTab {
-  all= 'ALL',
-  feed= 'FEED',
-  tag= 'TAG'
+  all = 'ALL',
+  feed = 'FEED',
+  tag = 'TAG',
 }
 
 export interface HomeFeedNavigationInput {
@@ -22,13 +22,14 @@ export class HomeFeedNavigationComponent extends LitElement {
   }
 
   protected render() {
-    if (!this.input) { return; }
+    if (!this.input) {
+      return;
+    }
 
     return html`
       <div class="feed-toggle">
         <ul class="nav nav-pills outline-active">
-          ${this.YourFeedTab(this.input)}
-          ${this.GlobalFeedTab(this.input)}
+          ${this.YourFeedTab(this.input)} ${this.GlobalFeedTab(this.input)}
           ${this.TagFeedTab(this.input)}
         </ul>
       </div>
@@ -38,7 +39,12 @@ export class HomeFeedNavigationComponent extends LitElement {
   YourFeedTab = (input: HomeFeedNavigationInput) => {
     return html`
       <li class="nav-item" @click=${() => this.tabSelected(SelectedTab.feed)}>
-        <a href="" class=${input.selectedTab === SelectedTab.feed ? 'nav-link active' : 'nav-link'}>
+        <a
+          href=""
+          class=${input.selectedTab === SelectedTab.feed
+            ? 'nav-link active'
+            : 'nav-link'}
+        >
           Your Feed
         </a>
       </li>
@@ -47,8 +53,13 @@ export class HomeFeedNavigationComponent extends LitElement {
 
   GlobalFeedTab = (input: HomeFeedNavigationInput) => {
     return html`
-      <li class="nav-item" @click=${() => this.tabSelected(SelectedTab.all)} >
-        <a href="" class=${input.selectedTab === SelectedTab.all ? 'nav-link active' : 'nav-link'}>
+      <li class="nav-item" @click=${() => this.tabSelected(SelectedTab.all)}>
+        <a
+          href=""
+          class=${input.selectedTab === SelectedTab.all
+            ? 'nav-link active'
+            : 'nav-link'}
+        >
           Global Feed
         </a>
       </li>
@@ -56,9 +67,11 @@ export class HomeFeedNavigationComponent extends LitElement {
   }
 
   TagFeedTab = (input: HomeFeedNavigationInput) => {
-    if (input.selectedTab !== SelectedTab.tag) { return; }
+    if (input.selectedTab !== SelectedTab.tag) {
+      return;
+    }
     return html`
-      <li class="nav-item" @click=${() => this.tabSelected(SelectedTab.tag)} >
+      <li class="nav-item" @click=${() => this.tabSelected(SelectedTab.tag)}>
         <a class="nav-link active">
           <i class="ion-pound"></i> ${input.selectedTag}
         </a>
@@ -67,7 +80,7 @@ export class HomeFeedNavigationComponent extends LitElement {
   }
 
   tabSelected(tab: SelectedTab) {
-    const event = new CustomEvent('tab-selected', {detail: { tab: tab }});
+    const event = new CustomEvent('tab-selected', { detail: { tab } });
     this.dispatchEvent(event);
   }
 }
