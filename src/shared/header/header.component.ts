@@ -1,12 +1,12 @@
-import { html, customElement, LitElement, property } from 'lit-element';
+import { html, customElement, LitElement, property } from 'lit-element'
 
 @customElement('app-header')
 export class HeaderComponent extends LitElement {
-  @property({ type: String }) appName = '';
-  @property({ type: String }) currentUser = '';
+  @property({ type: String }) appName = ''
+  @property({ type: String }) currentUser = ''
 
   createRenderRoot() {
-    return this;
+    return this
   }
 
   protected render() {
@@ -20,7 +20,7 @@ export class HeaderComponent extends LitElement {
           ${this.LoggedInView(this.currentUser)}
         </div>
       </nav>
-    `;
+    `
   }
 
   LoggedOutView = (currentUser: string) => {
@@ -37,9 +37,9 @@ export class HeaderComponent extends LitElement {
             <a href="/register" class="nav-link">Sign up</a>
           </li>
         </ul>
-      `;
+      `
     }
-    return null;
+    return null
   }
 
   LoggedInView = (currentUser: string) => {
@@ -55,18 +55,19 @@ export class HeaderComponent extends LitElement {
             </a>
           </li>
           <li class="nav-item">
-            <a href="/settings" class="nav-link">
+            <a href="/settings/" class="nav-link">
               <i class="ion-gear-a"></i>&nbsp;Settings
             </a>
           </li>
           <li class="nav-item">
-            <a href=${`/profile/${this.currentUser}`} class="nav-link">${this.currentUser}</a>
+            <a href=${`/profile/${this.currentUser}`} class="nav-link"
+              >${this.currentUser}</a
+            >
           </li>
         </ul>
-      `;
+      `
     }
 
-    return null;
+    return null
   }
-
 }
