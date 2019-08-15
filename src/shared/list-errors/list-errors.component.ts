@@ -1,17 +1,17 @@
-import { LitElement, html, property, customElement } from 'lit-element'
-import { Errors } from '../../models/errors.model'
+import { LitElement, html, property, customElement } from 'lit-element';
+import { Errors } from '../../models/errors.model';
 
 @customElement('app-list-errors')
 export class AppListErrorsComponent extends LitElement {
-  @property() errors?: Errors
+  @property() errors?: Errors;
 
   createRenderRoot() {
-    return this
+    return this;
   }
 
   protected render() {
     if (!this.errors) {
-      return
+      return;
     }
 
     return html`
@@ -27,6 +27,6 @@ export class AppListErrorsComponent extends LitElement {
           ),
         )}
       </ul>
-    `
+    `;
   }
 }

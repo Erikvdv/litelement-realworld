@@ -1,42 +1,42 @@
-import { html, customElement, LitElement, property } from 'lit-element'
+import { html, customElement, LitElement, property } from 'lit-element';
 
-import { store, RootState } from '../store'
-import { connect } from 'pwa-helpers/connect-mixin'
-import { Errors } from '../models/errors.model'
-import { Article, NewArticle } from '../models'
-import { addArticle, updateArticle } from './editor.actions'
-import { User } from '../models/user.model'
-import { editorStateSelector } from './editor.reducer'
-import { RequestStatus } from '../models/request-status.model'
-import { getUser } from '../login'
-import('../shared/list-errors/list-errors.component')
+import { store, RootState } from '../store';
+import { connect } from 'pwa-helpers/connect-mixin';
+import { Errors } from '../models/errors.model';
+import { Article, NewArticle } from '../models';
+import { addArticle, updateArticle } from './editor.actions';
+import { User } from '../models/user.model';
+import { editorStateSelector } from './editor.reducer';
+import { RequestStatus } from '../models/request-status.model';
+import { getUser } from '../login';
+import('../shared/list-errors/list-errors.component');
 
 interface EditableFields {
-  title: string
-  description: string
-  body: string
-  tagList: string[]
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
 }
 
 @customElement('app-editor')
 export class EditorContainer extends connect(store)(LitElement) {
-  @property() private article?: Article
-  @property() private errors?: Errors
-  @property() private user?: User
-  @property() private addArticleStatus = RequestStatus.notStarted
+  @property() private article?: Article;
+  @property() private errors?: Errors;
+  @property() private user?: User;
+  @property() private addArticleStatus = RequestStatus.notStarted;
   @property() private fields: EditableFields = {
     body: '',
     description: '',
     tagList: [],
     title: '',
-  }
+  };
 
   createRenderRoot() {
-    return this
+    return this;
   }
 
   protected firstUpdated() {
-    console.log('first updated hiero')
+    console.log('first updated hiero');
   }
 
   protected render() {
@@ -63,7 +63,7 @@ export class EditorContainer extends connect(store)(LitElement) {
                       value=${this.fields.title}
                       placeholder="Article Title"
                       @keyup="${(ev: KeyboardEvent) => {
-                        this.fields.title = (<HTMLInputElement>ev.target).value
+                        this.fields.title = (<HTMLInputElement>ev.target).value;
                       }}"
                     />
                   </fieldset>
@@ -76,7 +76,7 @@ export class EditorContainer extends connect(store)(LitElement) {
                       @keyup="${(ev: KeyboardEvent) => {
                         this.fields.description = (<HTMLInputElement>(
                           ev.target
-                        )).value
+                        )).value;
                       }}"
                     />
                   </fieldset>
@@ -86,7 +86,7 @@ export class EditorContainer extends connect(store)(LitElement) {
                       rows="8"
                       placeholder="Write your article (in markdown)"
                       @keyup="${(ev: KeyboardEvent) => {
-                        this.fields.body = (<HTMLInputElement>ev.target).value
+                        this.fields.body = (<HTMLInputElement>ev.target).value;
                       }}"
                     >
 ${this.fields.body}</textarea
@@ -99,9 +99,9 @@ ${this.fields.body}</textarea
                       placeholder="Enter tags"
                       @keyup="${(ev: KeyboardEvent) => {
                         if (ev.key === 'Enter') {
-                          const target = <HTMLInputElement>ev.target
-                          this.addTag(target.value)
-                          target.value = ''
+                          const target = <HTMLInputElement>ev.target;
+                          this.addTag(target.value);
+                          target.value = '';
                         }
                       }}"
                     />
@@ -115,7 +115,7 @@ ${this.fields.body}</textarea
                             ></i>
                             ${tag}
                           </a>
-                        `
+                        `;
                       })}
                     </div>
                   </fieldset>
@@ -123,8 +123,8 @@ ${this.fields.body}</textarea
                     class="btn btn-lg pull-xs-right btn-primary"
                     type="button"
                     @click="${(ev: Event) => {
-                      ev.preventDefault()
-                      this.submit()
+                      ev.preventDefault();
+                      this.submit();
                     }}"
                   >
                     Publish Article
@@ -135,34 +135,34 @@ ${this.fields.body}</textarea
           </div>
         </div>
       </div>
-    `
+    `;
   }
 
   stateChanged(state: RootState) {
-    const editorState = editorStateSelector(state)
+    const editorState = editorStateSelector(state);
     if (!editorState) {
-      return
+      return;
     }
     if (editorState.article !== undefined) {
-      this.article = editorState.article
+      this.article = editorState.article;
       this.fields = {
         body: editorState.article.body,
         description: editorState.article.description,
         tagList: editorState.article.tagList,
         title: editorState.article.title,
-      }
+      };
     } else {
       this.fields = {
         body: '',
         description: '',
         tagList: [],
         title: '',
-      }
+      };
     }
-    this.errors = editorState.errors
-    this.addArticleStatus = editorState.addArticleStatus
+    this.errors = editorState.errors;
+    this.addArticleStatus = editorState.addArticleStatus;
 
-    this.user = getUser(state)
+    this.user = getUser(state);
   }
 
   addTag(tag: string) {
@@ -170,13 +170,13 @@ ${this.fields.body}</textarea
       this.fields = {
         ...this.fields,
         tagList: [...this.fields.tagList, tag],
-      }
+      };
       // this.fields.tagList = [...this.fields.tagList, tag];
     }
   }
 
   deleteTag(tag: string) {
-    this.fields.tagList = this.fields.tagList.filter(item => item !== tag)
+    this.fields.tagList = this.fields.tagList.filter(item => item !== tag);
   }
 
   submit() {
@@ -186,16 +186,16 @@ ${this.fields.body}</textarea
         description: this.fields.description,
         body: this.fields.body,
         tagList: this.fields.tagList,
-      }
+      };
       // tslint:disable-next-line:no-non-null-assertion
-      store.dispatch(addArticle(newArticle, this.user!.token))
+      store.dispatch(addArticle(newArticle, this.user!.token));
     } else {
-      this.article.title = this.fields.title
-      this.article.body = this.fields.body
-      this.article.tagList = this.fields.tagList
-      this.article.description = this.fields.description
+      this.article.title = this.fields.title;
+      this.article.body = this.fields.body;
+      this.article.tagList = this.fields.tagList;
+      this.article.description = this.fields.description;
       // tslint:disable-next-line:no-non-null-assertion
-      store.dispatch(updateArticle(this.article, this.user!.token))
+      store.dispatch(updateArticle(this.article, this.user!.token));
     }
   }
 }
