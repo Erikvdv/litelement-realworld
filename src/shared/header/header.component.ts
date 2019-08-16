@@ -55,12 +55,14 @@ export class HeaderComponent extends LitElement {
             </a>
           </li>
           <li class="nav-item">
-            <a href="/settings" class="nav-link">
+            <a href="/settings/" class="nav-link">
               <i class="ion-gear-a"></i>&nbsp;Settings
             </a>
           </li>
           <li class="nav-item">
-            <a href=${`/profile/${this.currentUser}`} class="nav-link">${this.currentUser}</a>
+            <a href=${`/profile/${this.currentUser}`} class="nav-link"
+              >${this.currentUser}</a
+            >
           </li>
         </ul>
       `;
@@ -68,5 +70,4 @@ export class HeaderComponent extends LitElement {
 
     return null;
   }
-
 }
