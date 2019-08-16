@@ -67,6 +67,11 @@ export class AppRoot extends connect(store)(LitElement) {
                           <app-editor></app-editor>
                       `
                     : ''}
+                ${this.route === RootRoute.profile
+                    ? html`
+                          <app-profile></app-profile>
+                      `
+                    : ''}
             </main>
             ${this.Footer()}
         `;

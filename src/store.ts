@@ -23,6 +23,8 @@ import { LoginState } from './login/login.reducer';
 import { LoginAction } from './login/login.actions';
 import { EditorAction } from './editor';
 import { EditorState } from './editor/editor.reducer';
+import { ProfileAction } from './profile/profile.actions';
+import { ProfileState } from './profile/profile.reducer';
 
 declare global {
     interface Window {
@@ -40,6 +42,7 @@ export interface RootState {
     article?: ArticleState;
     editor?: EditorState;
     registration?: RegistrationState;
+    profile?: ProfileState;
 }
 
 export type RootAction =
@@ -49,6 +52,7 @@ export type RootAction =
     | ArticleAction
     | RegistrationAction
     | LoginAction
+    | ProfileAction
     | EditorAction;
 
 // Sets up a Chrome extension for time travel debugging.
