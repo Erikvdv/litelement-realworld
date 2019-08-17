@@ -2,13 +2,12 @@ import { html, customElement, property, LitElement } from 'lit-element';
 
 import { store, RootState } from '../store';
 import { connect } from 'pwa-helpers/connect-mixin';
-import { isLoggedIn, userName } from '../login';
+import { userName } from '../login';
 import { profileStateSelector } from './profile.reducer';
 import { Errors, Profile } from '../models';
 
 @customElement('app-profile')
 export class ProfileContainer extends connect(store)(LitElement) {
-    @property() private isLoggedIn = false;
     @property() private userName = '';
     @property() private errors?: Errors;
     @property() private profile?: Profile;
@@ -101,7 +100,6 @@ export class ProfileContainer extends connect(store)(LitElement) {
     }
 
     stateChanged(state: RootState) {
-        this.isLoggedIn = isLoggedIn(state);
         const profileState = profileStateSelector(state);
         if (!profileState) {
             return;
