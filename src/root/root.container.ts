@@ -13,9 +13,9 @@ import { store, RootState } from '../store';
 
 import { navigate } from './root.actions';
 import { RootRoute } from './root.reducer';
-import { UserResponse } from '../models/user.model';
+import { UserResponse, User } from '../models/user.model';
 import { loginRefresh } from '../login/login.actions';
-import { userName } from '../login';
+import { userName, getUser } from '../login';
 
 @customElement('app-root')
 export class AppRoot extends connect(store)(LitElement) {
@@ -27,6 +27,8 @@ export class AppRoot extends connect(store)(LitElement) {
 
   @property()
   private username = '';
+
+  @property() private user?: User;
 
   createRenderRoot() {
     return this;
@@ -102,7 +104,7 @@ export class AppRoot extends connect(store)(LitElement) {
       store.dispatch(loginRefresh(userResponse.user));
     }
     installRouter(() => {
-      store.dispatch(navigate());
+      store.dispatch(navigate(this.user ? this.user.token : null));
     });
   }
 
@@ -118,7 +120,7 @@ export class AppRoot extends connect(store)(LitElement) {
 
   stateChanged(state: RootState) {
     this.route = state.app.route;
-
+    this.user = getUser(state);
     this.username = userName(state);
   }
 }

@@ -4,6 +4,7 @@ import { RootState } from '../../store';
 import { Article, ArticleListQuery, ArticleListType } from '../../models';
 import { API_ROOT } from '../../constants';
 import { navigate } from '../../root/root.actions';
+import { fetchArticle } from '../../article';
 
 // Action Types
 export const LOAD_ARTICLE_LIST_REQUESTED = 'LOAD_ARTICLE_LIST_REQUESTED';
@@ -224,9 +225,10 @@ export const setFavorite: ActionCreator<ThunkResult> = (
     headers: headers,
   })
     .then(res => res.json())
-    .then((data: SetFavoriteArticleResult) =>
-      dispatch(setFavoriteCompleted(slug, data.article)),
-    )
+    .then((data: SetFavoriteArticleResult) => {
+      dispatch(setFavoriteCompleted(slug, data.article));
+      dispatch(fetchArticle(slug, token));
+    })
     .catch(() => dispatch(setFavoriteFailed(slug)));
 };
 
@@ -245,8 +247,9 @@ export const deleteFavorite: ActionCreator<ThunkResult> = (
     headers: headers,
   })
     .then(res => res.json())
-    .then((data: SetFavoriteArticleResult) =>
-      dispatch(deleteFavoriteCompleted(slug, data.article)),
-    )
+    .then((data: SetFavoriteArticleResult) => {
+      dispatch(deleteFavoriteCompleted(slug, data.article));
+      dispatch(fetchArticle(slug, token));
+    })
     .catch(() => dispatch(deleteFavoriteFailed(slug)));
 };
