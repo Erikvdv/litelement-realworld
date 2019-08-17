@@ -12,6 +12,7 @@ export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_REFRESH_REQUESTED = 'LOGIN_REFRESH_REQUESTED';
 export const LOGIN_COMPLETED = 'LOGIN_COMPLETED';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGOUT = 'LOGOUT';
 
 // Actions Interfaces
 export interface ActionLoginRequested extends Action<'LOGIN_REQUESTED'> {
@@ -27,11 +28,14 @@ export interface ActionLoginFailed extends Action<'LOGIN_FAILED'> {
   errors: Errors;
 }
 
+export interface ActionLogout extends Action<'LOGOUT'> {}
+
 export type LoginAction =
   | ActionLoginRequested
   | ActionLoginRefreshRequested
   | ActionLoginCompleted
-  | ActionLoginFailed;
+  | ActionLoginFailed
+  | ActionLogout;
 
 type ThunkResult = ThunkAction<void, RootState, undefined, LoginAction>;
 
@@ -65,6 +69,12 @@ const loginFailed: ActionCreator<ActionLoginFailed> = (errors: Errors) => {
   return {
     type: LOGIN_FAILED,
     errors,
+  };
+};
+
+export const logout: ActionCreator<ActionLogout> = () => {
+  return {
+    type: LOGOUT,
   };
 };
 

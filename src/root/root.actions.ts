@@ -32,23 +32,34 @@ const goToHomePage: ActionCreator<ThunkResult> = () => dispatch => {
 
 const goToArticlePage: ActionCreator<ThunkResult> = (
   articleId: string,
+  token: string,
 ) => dispatch => {
   import('../article').then(module => {
-    dispatch(module.fetchArticle(articleId));
+    dispatch(module.fetchArticle(articleId, token));
     dispatch(updatePage(RootRoute.article));
   });
 };
 
 const goToEditorPage: ActionCreator<ThunkResult> = (
   articleId: string,
+  token: string,
 ) => dispatch => {
   import('../editor').then(module => {
     if (articleId !== undefined) {
-      dispatch(module.fetchArticle(articleId));
+      dispatch(module.fetchArticle(articleId, token));
     } else {
       dispatch(module.reset());
     }
     dispatch(updatePage(RootRoute.editor));
+  });
+};
+
+const goToProfilePage: ActionCreator<ThunkResult> = (
+  username: string,
+) => dispatch => {
+  import('../profile').then(module => {
+    dispatch(module.fetchProfile(username));
+    dispatch(updatePage(RootRoute.profile));
   });
 };
 
@@ -64,14 +75,24 @@ const goToLoginPage: ActionCreator<ThunkResult> = () => dispatch => {
   });
 };
 
-export const navigate: ActionCreator<ThunkResult> = () => dispatch => {
+const goToSettingsPage: ActionCreator<ThunkResult> = () => dispatch => {
+  import('../profile').then(() => {
+    dispatch(updatePage(RootRoute.settings));
+  });
+};
+
+export const navigate: ActionCreator<ThunkResult> = (
+  token: string,
+) => dispatch => {
   page.base('');
   page('/home', () => dispatch(goToHomePage()));
-  page('/article/:id', ctx => dispatch(goToArticlePage(ctx.params.id)));
+  page('/article/:id', ctx => dispatch(goToArticlePage(ctx.params.id, token)));
   page('/editor', () => dispatch(goToEditorPage()));
-  page('/editor/:id', ctx => dispatch(goToEditorPage(ctx.params.id)));
+  page('/editor/:id', ctx => dispatch(goToEditorPage(ctx.params.id, token)));
+  page('/profile/:id', ctx => dispatch(goToProfilePage(ctx.params.id)));
   page('/register', () => dispatch(goToRegistrationPage()));
   page('/login', () => dispatch(goToLoginPage()));
+  page('/settings', () => dispatch(goToSettingsPage()));
   page('*', () => dispatch(goToHomePage()));
   page();
 };

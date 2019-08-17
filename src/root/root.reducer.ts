@@ -22,6 +22,8 @@ export enum RootRoute {
   register = 'register',
   login = 'login',
   editor = 'editor',
+  profile = 'profile',
+  settings = 'settings',
 }
 
 const INITIAL_STATE: AppState = {

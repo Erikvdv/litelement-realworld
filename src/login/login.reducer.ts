@@ -5,6 +5,7 @@ import {
   LOGIN_COMPLETED,
   LOGIN_FAILED,
   LoginAction,
+  LOGOUT,
 } from './login.actions';
 import { Errors } from '../models';
 import { User } from '../models/user.model';
@@ -18,7 +19,17 @@ export interface LoginState {
 }
 
 const initialState: LoginState = {
-  user: { bio: '', email: '', image: '', token: '', username: '' },
+  user: {
+    bio: '',
+    email: '',
+    image: '',
+    token: '',
+    username: '',
+    id: 0,
+    createdAt: '',
+    updatedAt: '',
+    password: '',
+  },
   failure: false,
   isFetching: false,
   isLoggedIn: false,
@@ -55,6 +66,10 @@ const login: Reducer<LoginState, LoginAction> = (
         isFetching: false,
         failure: false,
         isLoggedIn: true,
+      };
+    case LOGOUT:
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -14,8 +14,8 @@ export interface HomeFeedNavigationInput {
 
 @customElement('app-home-feed-navigation')
 export class HomeFeedNavigationComponent extends LitElement {
-  @property()
-  input: HomeFeedNavigationInput | undefined;
+  @property({ attribute: false })
+  input?: HomeFeedNavigationInput;
 
   createRenderRoot() {
     return this;

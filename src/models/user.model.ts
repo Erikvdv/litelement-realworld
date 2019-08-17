@@ -4,6 +4,10 @@ export interface User {
   username: string;
   bio: string;
   image: string;
+  id: number;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface UserResponse {
