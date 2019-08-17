@@ -13,35 +13,36 @@ import { UPDATE_PAGE } from './root.actions';
 import { RootAction } from '../store';
 
 export interface AppState {
-    route: RootRoute;
+  route: RootRoute;
 }
 
 export enum RootRoute {
-    home = 'home',
-    article = 'article',
-    register = 'register',
-    login = 'login',
-    editor = 'editor',
-    profile = 'profile',
+  home = 'home',
+  article = 'article',
+  register = 'register',
+  login = 'login',
+  editor = 'editor',
+  profile = 'profile',
+  settings = 'settings',
 }
 
 const INITIAL_STATE: AppState = {
-    route: RootRoute.home,
+  route: RootRoute.home,
 };
 
 const appRoot: Reducer<AppState, RootAction> = (
-    state = INITIAL_STATE,
-    action,
+  state = INITIAL_STATE,
+  action,
 ) => {
-    switch (action.type) {
-        case UPDATE_PAGE:
-            return {
-                ...state,
-                route: action.route,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case UPDATE_PAGE:
+      return {
+        ...state,
+        route: action.route,
+      };
+    default:
+      return state;
+  }
 };
 
 export default appRoot;

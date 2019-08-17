@@ -1,6 +1,8 @@
 export enum ArticleListType {
   all = 'ALL',
   feed = 'FEED',
+  favorited = 'FAVORITED',
+  my = 'MY',
 }
 
 export interface ArticleListQuery {
