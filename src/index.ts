@@ -8,6 +8,4 @@
  */
 import 'regenerator-runtime/runtime';
 import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
-import 'whatwg-fetch';
-import './root';
-
+import './components/root/root.component';
