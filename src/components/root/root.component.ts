@@ -7,7 +7,8 @@ import { router } from './root.router';
 import store from '../../core/store';
 import { RootState } from 'typesafe-actions';
 import { mainTemplate, headerTemplate, footerTemplate } from './root.templates';
-import { autoLogin } from '../../core/user/user.actions';
+import { autoLoginInitiate } from '../../core/user/user.actions';
+import { RequestStatus } from '../../models/request-status.model';
 
 @customElement('app-root')
 export class RootComponent extends connect(store)(LitElement) {
@@ -19,18 +20,28 @@ export class RootComponent extends connect(store)(LitElement) {
   }
 
   protected render() {
-    return html`
-      ${headerTemplate(
-        'Conduit',
-        this.state.user.user ? this.state.user.user.username : '',
-      )}
-      ${mainTemplate(this.state.navigation.rootRoute)} ${footerTemplate()}
-    `;
+    if (this.state.user.autoLoginStatus === RequestStatus.fetching) {
+      return html`
+        Loading...
+      `;
+    } else {
+      return html`
+        ${headerTemplate(
+          'Conduit',
+          this.state.user.user ? this.state.user.user.username : '',
+        )}
+        ${mainTemplate(this.state.navigation.rootRoute)} ${footerTemplate()}
+      `;
+    }
   }
 
   protected firstUpdated() {
-    store.dispatch(autoLogin.request());
-    this.navigate();
+    store.dispatch(autoLoginInitiate());
+    installRouter(location => {
+      console.log('location: ' + location);
+      router.resolve({ pathname: location.pathname });
+    });
+    // this.navigate();
   }
 
   stateChanged(state: RootState) {
@@ -39,6 +50,7 @@ export class RootComponent extends connect(store)(LitElement) {
 
   navigate() {
     installRouter(location => {
+      console.log('location: ' + location);
       router.resolve({ pathname: location.pathname });
     });
   }

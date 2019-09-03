@@ -19,3 +19,7 @@ export interface NewArticle {
   body: string;
   tagList: string[];
 }
+
+export interface ArticleResponse {
+  article: Article;
+}

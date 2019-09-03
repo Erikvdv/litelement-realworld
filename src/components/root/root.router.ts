@@ -6,11 +6,17 @@ import store from '../../core/store';
 const routes: Route[] = [
   {
     path: '',
-    action: () => store.dispatch(navigate(RootRoute.home)),
+    action: async () => {
+      await import('../home');
+      store.dispatch(navigate(RootRoute.home));
+    },
   },
   {
     path: '/home',
-    action: () => store.dispatch(navigate(RootRoute.home)),
+    action: async () => {
+      await import('../home');
+      store.dispatch(navigate(RootRoute.home));
+    },
   },
   {
     path: '/article',
@@ -41,7 +47,10 @@ const routes: Route[] = [
   },
   {
     path: '(.*)',
-    action: () => store.dispatch(navigate(RootRoute.home)),
+    action: async () => {
+      await import('../home');
+      store.dispatch(navigate(RootRoute.home));
+    },
   },
 ];
 

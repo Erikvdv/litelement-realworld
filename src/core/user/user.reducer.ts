@@ -12,6 +12,7 @@ export interface UserState {
   userLoginStatus: RequestStatus;
   autoLoginStatus: RequestStatus;
   user?: User;
+  token?: string;
   errors?: Errors;
 }
 
@@ -41,6 +42,7 @@ export default (state: UserState = initialState, action: UserAction) => {
         userLoginStatus: RequestStatus.completed,
         isLoggedin: true,
         user: action.payload,
+        token: action.payload.token,
         errors: undefined,
       };
     case getType(autoLogin.request):
@@ -52,7 +54,14 @@ export default (state: UserState = initialState, action: UserAction) => {
     case getType(autoLogin.failure):
       return {
         ...state,
+        isLoggedin: false,
         autoLoginStatus: RequestStatus.failed,
+      };
+    case getType(autoLogin.cancel):
+      return {
+        ...state,
+        isLoggedin: false,
+        autoLoginStatus: RequestStatus.completed,
       };
     case getType(autoLogin.success):
       return {
@@ -60,6 +69,7 @@ export default (state: UserState = initialState, action: UserAction) => {
         autoLoginStatus: RequestStatus.completed,
         isLoggedin: true,
         user: action.payload,
+        token: action.payload.token,
         errors: undefined,
       };
     default:

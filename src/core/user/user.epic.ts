@@ -1,13 +1,30 @@
 import { Epic } from 'redux-observable';
 import { RootAction, isActionOf, RootState } from 'typesafe-actions';
 import { filter, mergeMap, map, catchError } from 'rxjs/operators';
-import { autoLogin, userLogin } from './user.actions';
+import { autoLogin, userLogin, autoLoginInitiate } from './user.actions';
 import * as api from './user.service';
 import { of } from 'rxjs';
 import { User } from '../../models/user.model';
 import { Errors } from '../../models';
 import { navigate } from '../../components/root/navigation/navigation.actions';
 import { RootRoute } from '../../components/root/navigation/navigation.reducer';
+
+export const autoLoginInitiateEpic: Epic<
+  RootAction,
+  RootAction,
+  RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(autoLoginInitiate)),
+    map(() => {
+      const userstring = localStorage.getItem('user');
+      if (userstring) {
+        return autoLogin.request();
+      } else {
+        return autoLogin.cancel();
+      }
+    }),
+  );
 
 export const autoLoginEpic: Epic<RootAction, RootAction, RootState> = action$ =>
   action$.pipe(
@@ -20,8 +37,9 @@ export const autoLoginEpic: Epic<RootAction, RootAction, RootState> = action$ =>
           map(res => autoLogin.success(res)),
           catchError(() => of(autoLogin.failure())),
         );
+      } else {
+        return of(autoLogin.failure());
       }
-      return catchError(() => of(autoLogin.failure()));
     }),
   );
 
