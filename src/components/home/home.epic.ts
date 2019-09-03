@@ -13,6 +13,7 @@ import { ArticleListType } from '../../models';
 import { SelectedTab } from './home.models';
 import { navigate } from '../root/navigation/navigation.actions';
 import { RootRoute } from '../root/navigation/navigation.reducer';
+import { router } from '../root/root.router';
 
 export const fetchtagsEpic: Epic<RootAction, RootAction, RootState> = action$ =>
   action$.pipe(
@@ -43,6 +44,7 @@ export const selectTabEpic: Epic<RootAction, RootAction, RootState> = (
         case SelectedTab.feed: {
           if (!store$.value.user.isLoggedin) {
             history.pushState(null, '', '/login');
+            router.resolve({ pathname: location.pathname });
             return navigate(RootRoute.login);
           } else {
             return setQuery({
