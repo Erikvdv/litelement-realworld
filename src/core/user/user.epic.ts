@@ -1,13 +1,19 @@
 import { Epic } from 'redux-observable';
 import { RootAction, isActionOf, RootState } from 'typesafe-actions';
-import { filter, mergeMap, map, catchError } from 'rxjs/operators';
-import { autoLogin, userLogin, autoLoginInitiate } from './user.actions';
+import { filter, mergeMap, map, catchError, delay } from 'rxjs/operators';
+import {
+  autoLogin,
+  userLogin,
+  autoLoginInitiate,
+  userRegistration,
+} from './user.actions';
 import * as api from './user.service';
 import { of } from 'rxjs';
 import { User } from '../../models/user.model';
 import { Errors } from '../../models';
 import { navigate } from '../../components/root/navigation/navigation.actions';
 import { RootRoute } from '../../components/root/navigation/navigation.reducer';
+import { router } from '../../components/root/root.router';
 
 export const autoLoginInitiateEpic: Epic<
   RootAction,
@@ -67,6 +73,30 @@ export const userLoginRequestEpic: Epic<
       ),
     ),
   );
+export const userRegistrationRequestEpic: Epic<
+  RootAction,
+  RootAction,
+  RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(userRegistration.request)),
+    map(action => {
+      console.log('action ' + action.payload);
+      return action;
+    }),
+    mergeMap(action =>
+      api.userLogin(action.payload).pipe(
+        map(res => {
+          if (res.id) {
+            return userRegistration.success(res as User);
+          } else {
+            return userRegistration.failure(res as Errors);
+          }
+        }),
+        catchError(_ => of(userRegistration.failure({}))),
+      ),
+    ),
+  );
 
 export const userLoginSuccessEpic: Epic<
   RootAction,
@@ -78,6 +108,23 @@ export const userLoginSuccessEpic: Epic<
     map(action => {
       localStorage.setItem('user', JSON.stringify(action.payload));
       window.history.pushState({}, '', '/');
+      router.resolve({ pathname: location.pathname });
+      return navigate(RootRoute.home);
+    }),
+  );
+
+export const userRegistrationSuccessEpic: Epic<
+  RootAction,
+  RootAction,
+  RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(userRegistration.success)),
+    delay(5),
+    map(action => {
+      localStorage.setItem('user', JSON.stringify(action.payload));
+      window.history.pushState({}, '', '/');
+      router.resolve({ pathname: location.pathname });
       return navigate(RootRoute.home);
     }),
   );

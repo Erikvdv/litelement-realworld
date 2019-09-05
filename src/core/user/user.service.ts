@@ -2,7 +2,7 @@ import { fromFetch } from 'rxjs/fetch';
 import { API_ROOT } from '../constants';
 import { switchMap, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
-import { UserResponse, User } from '../../models/user.model';
+import { UserResponse, User, UserRegistration } from '../../models/user.model';
 import { UserLogin } from '../../components/login/login.models';
 import { Errors } from '../../models';
 
@@ -35,7 +35,28 @@ export function userLogin(credentials: UserLogin): Observable<User | Errors> {
         const res: UserResponse = await response.json();
         return res.user;
       }
-      return (await response.json()) as Errors;
+      return (await response.json()).errors as Errors;
+    }),
+    catchError(err => throwError(err)),
+  );
+}
+
+export function userRegistration(
+  user: UserRegistration,
+): Observable<User | Errors> {
+  return fromFetch(`${API_ROOT}/users`, {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ user: user }),
+  }).pipe(
+    switchMap(async response => {
+      if (response.ok) {
+        const res: UserResponse = await response.json();
+        return res.user;
+      }
+      return (await response.json()).errors as Errors;
     }),
     catchError(err => throwError(err)),
   );

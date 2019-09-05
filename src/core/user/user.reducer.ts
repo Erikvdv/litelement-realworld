@@ -1,5 +1,5 @@
 import { ActionType, getType } from 'typesafe-actions';
-import { userLogin, autoLogin } from './user.actions';
+import { userLogin, autoLogin, userRegistration } from './user.actions';
 import { RequestStatus } from '../../models/request-status.model';
 import { User } from '../../models/user.model';
 import { Errors } from '../../models';
@@ -11,15 +11,18 @@ export interface UserState {
   isLoggedin: boolean;
   userLoginStatus: RequestStatus;
   autoLoginStatus: RequestStatus;
+  userRegistrationStatus: RequestStatus;
   user?: User;
   token?: string;
   errors?: Errors;
+  registrationErrors?: Errors;
 }
 
 const initialState: UserState = {
   isLoggedin: false,
   userLoginStatus: RequestStatus.notStarted,
   autoLoginStatus: RequestStatus.notStarted,
+  userRegistrationStatus: RequestStatus.notStarted,
 };
 
 export default (state: UserState = initialState, action: UserAction) => {
@@ -71,6 +74,27 @@ export default (state: UserState = initialState, action: UserAction) => {
         user: action.payload,
         token: action.payload.token,
         errors: undefined,
+      };
+    case getType(userRegistration.request):
+      return {
+        ...state,
+        userRegistrationStatus: RequestStatus.fetching,
+        registrationErrors: undefined,
+      };
+    case getType(userRegistration.failure):
+      return {
+        ...state,
+        userRegistrationStatus: RequestStatus.failed,
+        registrationErrors: action.payload,
+      };
+    case getType(userRegistration.success):
+      return {
+        ...state,
+        userRegistrationStatus: RequestStatus.completed,
+        isLoggedin: true,
+        user: action.payload,
+        token: action.payload.token,
+        registrationErrors: undefined,
       };
     default:
       return state;

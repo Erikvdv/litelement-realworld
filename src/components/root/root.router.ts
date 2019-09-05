@@ -32,7 +32,10 @@ const routes: Route[] = [
   },
   {
     path: '/register',
-    action: () => store.dispatch(navigate(RootRoute.register)),
+    action: async () => {
+      await import('../registration');
+      return store.dispatch(navigate(RootRoute.register));
+    },
   },
   {
     path: '/login',

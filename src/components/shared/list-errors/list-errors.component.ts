@@ -10,6 +10,7 @@ export class AppListErrorsComponent extends LitElement {
   }
 
   protected render() {
+    console.log('errors: ' + this.errors);
     if (!this.errors) {
       return;
     }

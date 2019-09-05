@@ -2,18 +2,19 @@ import { customElement, LitElement, property } from 'lit-element';
 
 import('../shared/list-errors/list-errors.component');
 
-import { Errors } from '../../models';
 import { loginTemplate } from './login.templates';
 import { UserLogin } from './login.models';
 import store from '../../core/store';
 import { userLogin } from '../../core/user/user.actions';
+import { connect } from 'pwa-helpers/connect-mixin';
+import { RootState } from 'typesafe-actions';
 // import store from '../../core/store';
 
 @customElement('app-login')
-export class LoginComponent extends LitElement {
+export class LoginComponent extends connect(store)(LitElement) {
   @property() private formIsValid = false;
   @property() private userLogin: UserLogin = { email: '', password: '' };
-  @property() private errors?: Errors;
+  @property() private state = store.getState();
 
   createRenderRoot() {
     return this;
@@ -25,8 +26,12 @@ export class LoginComponent extends LitElement {
       this.emailUpdated,
       this.passwordUpdated,
       this.submit,
-      this.errors,
+      this.state.user.errors,
     );
+  }
+
+  stateChanged(state: RootState) {
+    this.state = state;
   }
 
   validateForm() {

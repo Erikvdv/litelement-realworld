@@ -1,6 +1,6 @@
 import { createAsyncAction, createStandardAction } from 'typesafe-actions';
 // import { Errors } from '../../models';
-import { User } from '../../models/user.model';
+import { User, UserRegistration } from '../../models/user.model';
 import { Errors } from '../../models';
 import { UserLogin } from '../../components/login/login.models';
 
@@ -16,6 +16,12 @@ export const userLogin = createAsyncAction(
   'LOGIN_SUCCESS',
   'LOGIN_FAILURE',
 )<UserLogin, User, Errors>();
+
+export const userRegistration = createAsyncAction(
+  'REGISTRATION_REQUEST',
+  'REGISTRATION_SUCCESS',
+  'REGISTRATION_FAILURE',
+)<UserRegistration, User, Errors>();
 
 export const autoLoginInitiate = createStandardAction('AUTO_LOGIN_INITIATE')<
   void

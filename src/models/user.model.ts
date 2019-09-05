@@ -10,6 +10,12 @@ export interface User {
   updatedAt: string;
 }
 
+export interface UserRegistration {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export interface UserResponse {
   user: User;
 }
