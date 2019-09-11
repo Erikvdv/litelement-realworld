@@ -14,106 +14,107 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 module.exports = (env, argv) => {
-    var isDevelopmentMode = argv.mode === 'development'
-    return {
-        devServer: {
-            historyApiFallback: true,
-        },
-        mode: 'production',
-        module: {
-            rules: [
-                {
-                    test: /\.(ts|js)x?$/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [
-                                [
-                                    '@babel/preset-env',
-                                    {
-                                        targets: {
-                                            esmodules: true,
-                                        },
-                                    },
-                                ],
-                            ],
-                            plugins: ['@babel/plugin-syntax-dynamic-import'],
-                        },
+  var isDevelopmentMode = argv.mode === 'development'
+  return {
+    devServer: {
+      historyApiFallback: true,
+    },
+    mode: 'production',
+    module: {
+      rules: [
+        {
+          test: /\.(ts|js)x?$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: {
+                      esmodules: true,
                     },
-                },
-                {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
-                },
-            ],
-        },
-        resolve: {
-            extensions: ['.js', '.ts'],
-        },
-        plugins: [
-            new CleanWebpackPlugin(),
-            new CopyWebpackPlugin([
-                'images/**',
-                'node_modules/@webcomponents/webcomponentsjs/**',
-                'manifest.json',
-            ]),
-            new HtmlWebpackPlugin({
-                chunksSortMode: 'none',
-                hash: true,
-                template: 'index.html',
-            }),
-            new BaseHrefWebpackPlugin({
-                baseHref: isDevelopmentMode ? '/' : '/modern/',
-            }),
-            new WorkboxWebpackPlugin.GenerateSW({
-                include: ['index.html', 'manifest.json', /\.js$/],
-                exclude: [/\/@webcomponents\/webcomponentsjs\//],
-                navigateFallback: 'index.html',
-                swDest: 'service-worker.js',
-                clientsClaim: true,
-                skipWaiting: true,
-                runtimeCaching: [
-                    {
-                        urlPattern: /\/@webcomponents\/webcomponentsjs\//,
-                        handler: 'staleWhileRevalidate',
-                    },
-                    {
-                        urlPattern: /^https:\/\/fonts.gstatic.com\//,
-                        handler: 'staleWhileRevalidate',
-                    },
-                    {
-                        urlPattern: new RegExp(
-                            '^https://conduit.productionready.io/',
-                        ),
-                        handler: 'networkFirst',
-                    },
+                  },
                 ],
-            }),
+              ],
+              plugins: ['@babel/plugin-syntax-dynamic-import'],
+            },
+          },
+        },
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+        },
+      ],
+    },
+    resolve: {
+      extensions: ['.js', '.ts'],
+    },
+    plugins: [
+      new BundleAnalyzerPlugin(),
+      new CleanWebpackPlugin(),
+      new CopyWebpackPlugin([
+        'images/**',
+        'node_modules/@webcomponents/webcomponentsjs/**',
+        'manifest.json',
+      ]),
+      new HtmlWebpackPlugin({
+        chunksSortMode: 'none',
+        hash: true,
+        template: 'index.html',
+      }),
+      new BaseHrefWebpackPlugin({
+        baseHref: isDevelopmentMode ? '/' : '/modern/',
+      }),
+      new WorkboxWebpackPlugin.GenerateSW({
+        include: ['index.html', 'manifest.json', /\.js$/],
+        exclude: [/\/@webcomponents\/webcomponentsjs\//],
+        navigateFallback: 'index.html',
+        swDest: 'service-worker.js',
+        clientsClaim: true,
+        skipWaiting: true,
+        runtimeCaching: [
+          {
+            urlPattern: /\/@webcomponents\/webcomponentsjs\//,
+            handler: 'staleWhileRevalidate',
+          },
+          {
+            urlPattern: /^https:\/\/fonts.gstatic.com\//,
+            handler: 'staleWhileRevalidate',
+          },
+          {
+            urlPattern: new RegExp('^https://conduit.productionready.io/'),
+            handler: 'networkFirst',
+          },
         ],
-        optimization: {
-            minimizer: [
-                new TerserPlugin({
-                    cache: true,
-                    parallel: true,
-                    sourceMap: false, // Must be set to true if using source-maps in production
-                    terserOptions: {
-                        // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
-                    },
-                    extractComments: {
-                        condition: /^\**!|@preserve|@license|@cc_on/i,
-                        filename: 'extracted-comments.js',
-                        banner: licenseFile => {
-                            return `License information can be found in ${licenseFile}`
-                        },
-                    },
-                }),
-            ],
-        },
-        output: {
-            path: __dirname + '/dist/modern',
-            filename: '[name].[contenthash].js',
-        },
-    }
+      }),
+    ],
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: false, // Must be set to true if using source-maps in production
+          terserOptions: {
+            // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+          },
+          extractComments: {
+            condition: /^\**!|@preserve|@license|@cc_on/i,
+            filename: 'extracted-comments.js',
+            banner: licenseFile => {
+              return `License information can be found in ${licenseFile}`
+            },
+          },
+        }),
+      ],
+    },
+    output: {
+      path: __dirname + '/dist/modern',
+      filename: '[name].[contenthash].js',
+    },
+  }
 }

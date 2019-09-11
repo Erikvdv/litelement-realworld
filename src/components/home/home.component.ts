@@ -15,6 +15,11 @@ export class HomeComponent extends connect(store)(LitElement) {
     return this;
   }
 
+  protected firstUpdated() {
+    store.dispatch(initiateTab());
+    store.dispatch(tags.request());
+  }
+
   protected render() {
     if (this.state.home.articleListQuery) {
       return homeTemplate(
@@ -30,11 +35,6 @@ export class HomeComponent extends connect(store)(LitElement) {
     } else {
       return html``;
     }
-  }
-
-  protected firstUpdated() {
-    store.dispatch(initiateTab());
-    store.dispatch(tags.request());
   }
 
   stateChanged(state: RootState) {

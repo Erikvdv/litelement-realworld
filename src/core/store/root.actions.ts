@@ -2,10 +2,12 @@ import * as navigationActions from '../../components/root/navigation/navigation.
 import * as authActions from '../user/user.actions';
 import * as homeActions from '../../components/home/home.actions';
 import * as articleListActions from '../../components/article-list/article-list.actions';
+import * as articleActions from '../../components/article/article.actions';
 
 export default {
   navigation: navigationActions,
   auth: authActions,
   home: homeActions,
   articleList: articleListActions,
+  article: articleActions,
 };

@@ -2,6 +2,8 @@ import UniversalRouter, { Route } from 'universal-router';
 import { navigate } from './navigation/navigation.actions';
 import { RootRoute } from './navigation/navigation.reducer';
 import store from '../../core/store';
+import { articleRoutes } from '../article/article.router';
+// import { fetchArticle, fetchComments } from '../article/article.actions';
 
 const routes: Route[] = [
   {
@@ -18,10 +20,7 @@ const routes: Route[] = [
       store.dispatch(navigate(RootRoute.home));
     },
   },
-  {
-    path: '/article',
-    action: () => store.dispatch(navigate(RootRoute.article)),
-  },
+  ...articleRoutes,
   {
     path: '/editor',
     action: () => store.dispatch(navigate(RootRoute.editor)),
@@ -51,6 +50,7 @@ const routes: Route[] = [
   {
     path: '(.*)',
     action: async () => {
+      console.log('page not found');
       await import('../home');
       store.dispatch(navigate(RootRoute.home));
     },

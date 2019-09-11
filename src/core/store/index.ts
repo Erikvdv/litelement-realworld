@@ -4,13 +4,14 @@ import {
   StoreEnhancer,
   combineReducers,
   compose,
+  // Reducer,
 } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 
-import rootReducer from './root.reducer';
 import rootEpic from './root.epic';
 import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer';
 import { RootAction, RootState } from 'typesafe-actions';
+import rootReducer from './root.reducer';
 
 declare global {
   interface Window {
@@ -39,11 +40,30 @@ const enhancer = devCompose(
   applyMiddleware(...middlewares),
 );
 
+// export interface RootState {
+//   navigation: NavigationState;
+//   user: UserState;
+//   home: HomeState;
+//   article: ArticleState;
+//   articleList?: ArticleListState;
+// }
+
 // rehydrate state on app start
 const initialState = {};
 
 // create store
 const store = createStore(rootReducer, initialState, enhancer);
+
+// const store = createStore(
+//   state => state as Reducer<RootState, RootAction>,
+//   initialState,
+//   enhancer,
+// );
+
+// Initially loaded reducers.
+// store.addReducers({
+//   user: userReducer,
+// });
 
 epicMiddleware.run(rootEpic);
 
