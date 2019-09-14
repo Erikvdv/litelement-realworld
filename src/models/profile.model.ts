@@ -4,3 +4,8 @@ export interface Profile {
   image: string;
   following: boolean;
 }
+
+export enum ProfileTab {
+  my = 'MY',
+  favorited = 'FAVORITED',
+}

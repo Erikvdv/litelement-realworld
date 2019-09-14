@@ -7,11 +7,11 @@ const ArticleMetaTemplate = (
   markFavorite: (slug: string) => void,
 ) => html`
   <div class="article-meta">
-    <a href="${`/profile/=${article.author.username}`}">
+    <a href="${`/profile/${article.author.username}`}">
       <img src=${article.author.image} alt=${article.author.username} />
     </a>
     <div class="info">
-      <a class="author" href="${`/profile/=${article.author.username}`}">
+      <a class="author" href="${`/profile/${article.author.username}`}">
         ${article.author.username}
       </a>
       <span class="date">

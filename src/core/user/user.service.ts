@@ -6,6 +6,10 @@ import { UserResponse, User, UserRegistration } from '../../models/user.model';
 import { UserLogin } from '../../components/login/login.models';
 import { Errors } from '../../models';
 
+interface UpdateUserRequest {
+  user: User;
+}
+
 export function autoLogin(token: string): Observable<User> {
   return fromFetch(`${API_ROOT}/user`, {
     method: 'get',
@@ -50,6 +54,32 @@ export function userRegistration(
       'content-type': 'application/json',
     },
     body: JSON.stringify({ user: user }),
+  }).pipe(
+    switchMap(async response => {
+      if (response.ok) {
+        const res: UserResponse = await response.json();
+        return res.user;
+      }
+      return (await response.json()).errors as Errors;
+    }),
+    catchError(err => throwError(err)),
+  );
+}
+
+export function updateUser(
+  user: User,
+  token: string,
+): Observable<User | Errors> {
+  const body: UpdateUserRequest = {
+    user,
+  };
+  return fromFetch(`${API_ROOT}/users`, {
+    method: 'put',
+    headers: {
+      Authorization: `Token ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(body),
   }).pipe(
     switchMap(async response => {
       if (response.ok) {

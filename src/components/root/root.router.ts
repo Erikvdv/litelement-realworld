@@ -3,7 +3,7 @@ import { navigate } from './navigation/navigation.actions';
 import { RootRoute } from './navigation/navigation.reducer';
 import store from '../../core/store';
 import { articleRoutes } from '../article/article.router';
-// import { fetchArticle, fetchComments } from '../article/article.actions';
+import { profileRoutes } from '../profile/profile.router';
 
 const routes: Route[] = [
   {
@@ -25,10 +25,7 @@ const routes: Route[] = [
     path: '/editor',
     action: () => store.dispatch(navigate(RootRoute.editor)),
   },
-  {
-    path: '/profile',
-    action: () => store.dispatch(navigate(RootRoute.profile)),
-  },
+  ...profileRoutes,
   {
     path: '/register',
     action: async () => {
