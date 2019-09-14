@@ -73,7 +73,7 @@ export function updateUser(
   const body: UpdateUserRequest = {
     user,
   };
-  return fromFetch(`${API_ROOT}/users`, {
+  return fromFetch(`${API_ROOT}/user`, {
     method: 'put',
     headers: {
       Authorization: `Token ${token}`,

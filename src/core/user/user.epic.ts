@@ -6,6 +6,8 @@ import {
   userLogin,
   autoLoginInitiate,
   userRegistration,
+  updateUser,
+  logout,
 } from './user.actions';
 import * as api from './user.service';
 import { of } from 'rxjs';
@@ -123,6 +125,51 @@ export const userRegistrationSuccessEpic: Epic<
     delay(5),
     map(action => {
       localStorage.setItem('user', JSON.stringify(action.payload));
+      window.history.pushState({}, '', '/');
+      router.resolve({ pathname: location.pathname });
+      return navigate(RootRoute.home);
+    }),
+  );
+
+export const updateUserEpic: Epic<RootAction, RootAction, RootState> = (
+  action$,
+  store$,
+) =>
+  action$.pipe(
+    filter(isActionOf(updateUser.request)),
+    mergeMap(action =>
+      api.updateUser(action.payload, store$.value.user.token!).pipe(
+        map(res => {
+          if (res.id) {
+            return updateUser.success(res as User);
+          } else {
+            return updateUser.failure(res as Errors);
+          }
+        }),
+        catchError(() => updateUser.failure),
+      ),
+    ),
+  );
+
+export const updateUserSuccessEpic: Epic<
+  RootAction,
+  RootAction,
+  RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf(updateUser.success)),
+    map(action => {
+      history.pushState(null, '', `/profile/${action.payload.username}`);
+      router.resolve({ pathname: location.pathname });
+      return navigate(RootRoute.profile);
+    }),
+  );
+
+export const logoutEpic: Epic<RootAction, RootAction, RootState> = action$ =>
+  action$.pipe(
+    filter(isActionOf(logout)),
+    map(() => {
+      localStorage.removeItem('user');
       window.history.pushState({}, '', '/');
       router.resolve({ pathname: location.pathname });
       return navigate(RootRoute.home);

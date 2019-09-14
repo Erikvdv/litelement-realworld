@@ -27,8 +27,10 @@ export const updateUser = createAsyncAction(
   'UPDATE_USER_REQUEST',
   'UPDATE_USER_SUCCESS',
   'UPDATE_USER_FAILURE',
-)<UserRegistration, User, Errors>();
+)<User, User, Errors>();
 
 export const autoLoginInitiate = createStandardAction('AUTO_LOGIN_INITIATE')<
   void
 >();
+
+export const logout = createStandardAction('LOGOUT')<void>();

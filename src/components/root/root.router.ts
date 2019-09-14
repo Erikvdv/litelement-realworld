@@ -42,7 +42,10 @@ const routes: Route[] = [
   },
   {
     path: '/settings',
-    action: () => store.dispatch(navigate(RootRoute.settings)),
+    action: async () => {
+      await import('../settings');
+      return store.dispatch(navigate(RootRoute.settings));
+    },
   },
   {
     path: '(.*)',

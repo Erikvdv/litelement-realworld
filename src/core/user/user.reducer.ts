@@ -12,16 +12,19 @@ export interface UserState {
   userLoginStatus: RequestStatus;
   autoLoginStatus: RequestStatus;
   userRegistrationStatus: RequestStatus;
+  updateUserStatus: RequestStatus;
   user?: User;
   token?: string;
   errors?: Errors;
   registrationErrors?: Errors;
+  updateUserErrors?: Errors;
 }
 
 const initialState: UserState = {
   isLoggedin: false,
   userLoginStatus: RequestStatus.notStarted,
   autoLoginStatus: RequestStatus.notStarted,
+  updateUserStatus: RequestStatus.notStarted,
   userRegistrationStatus: RequestStatus.notStarted,
 };
 
@@ -95,6 +98,28 @@ export default (state: UserState = initialState, action: UserAction) => {
         user: action.payload,
         token: action.payload.token,
         registrationErrors: undefined,
+      };
+    case getType(userActions.updateUser.request):
+      return {
+        ...state,
+        updateUserStatus: RequestStatus.fetching,
+        updateUserErrors: undefined,
+      };
+    case getType(userActions.updateUser.failure):
+      return {
+        ...state,
+        updateUserStatus: RequestStatus.failed,
+        updateUserErrors: action.payload,
+      };
+    case getType(userActions.updateUser.success):
+      return {
+        ...state,
+        updateUserStatus: RequestStatus.completed,
+        user: action.payload,
+      };
+    case getType(userActions.logout):
+      return {
+        ...initialState,
       };
     default:
       return state;
