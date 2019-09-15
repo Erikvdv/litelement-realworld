@@ -4,6 +4,7 @@ import { RootRoute } from './navigation/navigation.reducer';
 import store from '../../core/store';
 import { articleRoutes } from '../article/article.router';
 import { profileRoutes } from '../profile/profile.router';
+import { editorRoutes } from '../editor/editor.router';
 
 const routes: Route[] = [
   {
@@ -21,10 +22,7 @@ const routes: Route[] = [
     },
   },
   ...articleRoutes,
-  {
-    path: '/editor',
-    action: () => store.dispatch(navigate(RootRoute.editor)),
-  },
+  ...editorRoutes,
   ...profileRoutes,
   {
     path: '/register',

@@ -1,5 +1,5 @@
-import { createAsyncAction } from 'typesafe-actions';
-import { Article } from '../../models';
+import { createAsyncAction, createStandardAction } from 'typesafe-actions';
+import { Article, NewArticle, Errors } from '../../models';
 
 export const fetchArticle = createAsyncAction(
   'FETCH_ARTICLE_REQUEST',
@@ -12,6 +12,18 @@ export const deleteArticle = createAsyncAction(
   'DELETE_ARTICLE_SUCCESS',
   'DELETE_ARTICLE_FAILURE',
 )<string, string, void>();
+
+export const addArticle = createAsyncAction(
+  'ADD_ARTICLE_REQUEST',
+  'ADD_ARTICLE_SUCCESS',
+  'ADD_ARTICLE_FAILURE',
+)<NewArticle, Article, Errors>();
+
+export const updateArticle = createAsyncAction(
+  'UPDATE_ARTICLE_REQUEST',
+  'UPDATE_ARTICLE_SUCCESS',
+  'UPDATE_ARTICLE_FAILURE',
+)<Article, Article, Errors>();
 
 export const favoriteArticle = createAsyncAction(
   'DELETE_ARTICLE_REQUEST',
@@ -36,3 +48,5 @@ export const addComment = createAsyncAction(
   'ADD_COMMENT_SUCCESS',
   'ADD_COMMENT_FAILURE',
 )<string, Comment, void>();
+
+export const resetArticle = createStandardAction('RESET_ARTICLE')<void>();

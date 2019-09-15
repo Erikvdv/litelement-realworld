@@ -10,6 +10,8 @@ import {
   addComment,
   deleteComment,
   deleteArticle,
+  addArticle,
+  updateArticle,
 } from './article.actions';
 import { router } from '../root/root.router';
 import { RootRoute } from '../root/navigation/navigation.reducer';
@@ -28,6 +30,54 @@ export const fetchArticleEpic: Epic<
         catchError(() => fetchArticle.failure),
       ),
     ),
+  );
+
+export const addArticleEpic: Epic<RootAction, RootAction, RootState> = (
+  action$,
+  store$,
+) =>
+  action$.pipe(
+    filter(isActionOf(addArticle.request)),
+    mergeMap(action =>
+      articleService.addArticle(action.payload, store$.value.user.token!).pipe(
+        map(res => {
+          return addArticle.success(res);
+        }),
+        catchError(() => addArticle.failure),
+      ),
+    ),
+  );
+
+export const updateArticleEpic: Epic<RootAction, RootAction, RootState> = (
+  action$,
+  store$,
+) =>
+  action$.pipe(
+    filter(isActionOf(updateArticle.request)),
+    mergeMap(action =>
+      articleService
+        .updateArticle(action.payload, store$.value.user.token!)
+        .pipe(
+          map(res => {
+            return updateArticle.success(res);
+          }),
+          catchError(() => updateArticle.failure),
+        ),
+    ),
+  );
+
+export const upsertArticleSuccessEpic: Epic<
+  RootAction,
+  RootAction,
+  RootState
+> = action$ =>
+  action$.pipe(
+    filter(isActionOf([updateArticle.success, addArticle.success])),
+    map(action => {
+      history.pushState(null, '', `/article/${action.payload.slug}`);
+      router.resolve({ pathname: location.pathname });
+      return navigate(RootRoute.article);
+    }),
   );
 
 export const deleteArticleEpic: Epic<RootAction, RootAction, RootState> = (

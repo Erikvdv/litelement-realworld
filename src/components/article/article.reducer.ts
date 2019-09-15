@@ -1,7 +1,7 @@
 import * as articleActions from './article.actions';
 import { ActionType, getType } from 'typesafe-actions';
 import { RequestStatus } from '../../models/request-status.model';
-import { Article, Comment } from '../../models';
+import { Article, Comment, Errors } from '../../models';
 
 type ArticleAction = ActionType<typeof articleActions>;
 
@@ -9,6 +9,8 @@ export interface ArticleState {
   selectedArticle?: Article;
   fetchArticleStatus: RequestStatus;
   deleteArticleStatus: RequestStatus;
+  upsertArticleStatus: RequestStatus;
+  upsertArticleErrors?: Errors;
   comments: Comment[];
   fetchCommentsStatus: RequestStatus;
   addCommentStatus: RequestStatus;
@@ -17,6 +19,7 @@ export interface ArticleState {
 
 const initialState: ArticleState = {
   fetchArticleStatus: RequestStatus.notStarted,
+  upsertArticleStatus: RequestStatus.notStarted,
   deleteArticleStatus: RequestStatus.notStarted,
   fetchCommentsStatus: RequestStatus.notStarted,
   comments: [],
@@ -111,6 +114,10 @@ export default (state: ArticleState = initialState, action: ArticleAction) => {
         ...state,
         addCommentStatus: RequestStatus.completed,
         comments: [(action.payload as unknown) as Comment, ...state.comments],
+      };
+    case getType(articleActions.resetArticle):
+      return {
+        ...initialState,
       };
     default:
       return state;
