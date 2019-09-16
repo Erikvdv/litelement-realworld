@@ -1,5 +1,5 @@
 import { HomeComponent } from './home.component';
 
-import('../article-list');
+import('../shared/article-list');
 
 export { HomeComponent };

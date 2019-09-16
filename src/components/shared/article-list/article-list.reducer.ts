@@ -1,11 +1,11 @@
 import * as articleListActions from './article-list.actions';
 import { ActionType, getType } from 'typesafe-actions';
-import { RequestStatus } from '../../models/request-status.model';
-import { Article } from '../../models/article.model';
+import { RequestStatus } from '../../../models/request-status.model';
+import { Article } from '../../../models/article.model';
 import {
   ArticleListQuery,
   ArticleListType,
-} from '../../models/article-list-query.model';
+} from '../../../models/article-list-query.model';
 
 type ArticleListAction = ActionType<typeof articleListActions>;
 

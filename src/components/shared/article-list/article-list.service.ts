@@ -1,4 +1,4 @@
-import { API_ROOT } from '../../core/constants';
+import { API_ROOT } from '../../../core/constants';
 import { fromFetch } from 'rxjs/fetch';
 import { switchMap, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
@@ -6,8 +6,8 @@ import {
   ArticleListQuery,
   ArticleListType,
   ArticleListResponse,
-} from '../../models/article-list-query.model';
-import { ArticleResponse, Article } from '../../models/article.model';
+} from '../../../models/article-list-query.model';
+import { ArticleResponse, Article } from '../../../models/article.model';
 
 interface TagsResponse {
   tags: [];

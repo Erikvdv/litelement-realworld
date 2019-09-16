@@ -2,8 +2,8 @@ import { createAsyncAction, createStandardAction } from 'typesafe-actions';
 import {
   ArticleListQuery,
   ArticleListResponse,
-} from '../../models/article-list-query.model';
-import { Article } from '../../models/article.model';
+} from '../../../models/article-list-query.model';
+import { Article } from '../../../models/article.model';
 
 export const articleListFetch = createAsyncAction(
   'ARTICLE_LIST_FETCH_REQUEST',

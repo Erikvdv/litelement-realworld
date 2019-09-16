@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { Article } from '../../models/article.model';
+import { Article } from '../../../models/article.model';
 
 const ArticleMetaTemplate = (
   article: Article,

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import navigationReducer from '../core/navigation/navigation.reducer';
 import userReducer from '../core/user/user.reducer';
 import homeReducer from '../components/home/home.reducer';
-import articleListReducer from '../components/article-list/article-list.reducer';
+import articleListReducer from '../components/shared/article-list/article-list.reducer';
 import articleReducer from '../components/article/article.reducer';
 import profileReducer from '../components/profile/profile.reducer';
 import editorReducer from '../components/editor/editor.reducer';

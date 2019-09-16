@@ -1,5 +1,5 @@
 import { ProfileComponent } from './profile.component';
 
-import('../article-list');
+import('../shared/article-list');
 
 export { ProfileComponent };
