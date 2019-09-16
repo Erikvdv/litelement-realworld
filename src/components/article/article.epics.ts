@@ -13,9 +13,9 @@ import {
   addArticle,
   updateArticle,
 } from './article.actions';
-import { router } from '../root/root.router';
-import { RootRoute } from '../root/navigation/navigation.reducer';
-import { navigate } from '../root/navigation/navigation.actions';
+import { router } from '../../root.router';
+import { RootRoute } from '../../core/navigation/navigation.reducer';
+import { navigate } from '../../core/navigation/navigation.actions';
 
 export const fetchArticleEpic: Epic<
   RootAction,

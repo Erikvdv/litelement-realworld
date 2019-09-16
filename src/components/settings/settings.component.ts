@@ -1,6 +1,6 @@
 import { LitElement, customElement, property } from 'lit-element';
 import { connect } from 'pwa-helpers/connect-mixin';
-import store from '../../core/store';
+import store from '../../store';
 import { RootState } from 'typesafe-actions';
 import { settingsTemplate } from './settings.template';
 import { User } from '../../models/user.model';

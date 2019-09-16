@@ -11,9 +11,9 @@ import {
 import * as tagsService from './home.service';
 import { ArticleListType } from '../../models';
 import { SelectedTab } from './home.models';
-import { navigate } from '../root/navigation/navigation.actions';
-import { RootRoute } from '../root/navigation/navigation.reducer';
-import { router } from '../root/root.router';
+import { navigate } from '../../core/navigation/navigation.actions';
+import { RootRoute } from '../../core/navigation/navigation.reducer';
+import { router } from '../../root.router';
 
 export const fetchtagsEpic: Epic<RootAction, RootAction, RootState> = action$ =>
   action$.pipe(

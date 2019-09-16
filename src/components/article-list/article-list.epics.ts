@@ -9,9 +9,9 @@ import {
   articleUnsetFavorite,
 } from './article-list.actions';
 import * as articleListService from './article-list.service';
-import store from '../../core/store';
-import { navigate } from '../root/navigation/navigation.actions';
-import { RootRoute } from '../root/navigation/navigation.reducer';
+import store from '../../store';
+import { navigate } from '../../core/navigation/navigation.actions';
+import { RootRoute } from '../../core/navigation/navigation.reducer';
 import { of } from 'rxjs';
 
 export const fetchArticleListEpic: Epic<

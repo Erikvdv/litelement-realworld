@@ -1,8 +1,8 @@
 import { Route } from 'universal-router';
-import store from '../../core/store';
+import store from '../../store';
 
-import { navigate } from '../root/navigation/navigation.actions';
-import { RootRoute } from '../root/navigation/navigation.reducer';
+import { navigate } from '../../core/navigation/navigation.actions';
+import { RootRoute } from '../../core/navigation/navigation.reducer';
 import { setProfileUsername, fetchProfile } from './profile.actions';
 
 export const profileRoutes: Route[] = [

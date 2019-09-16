@@ -4,11 +4,11 @@ import { LitElement, html, property, customElement } from 'lit-element';
 import { installRouter } from 'pwa-helpers/router';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { router } from './root.router';
-import store from '../../core/store';
+import store from './store';
 import { RootState } from 'typesafe-actions';
 import { mainTemplate, headerTemplate, footerTemplate } from './root.templates';
-import { autoLoginInitiate } from '../../core/user/user.actions';
-import { RequestStatus } from '../../models/request-status.model';
+import { autoLoginInitiate } from './core/user/user.actions';
+import { RequestStatus } from './models/request-status.model';
 
 @customElement('app-root')
 export class RootComponent extends connect(store)(LitElement) {

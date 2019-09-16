@@ -1,9 +1,9 @@
 import { Route } from 'universal-router';
-import store from '../../core/store';
+import store from '../../store';
 
 import { resetEditor } from './editor.actions';
-import { navigate } from '../root/navigation/navigation.actions';
-import { RootRoute } from '../root/navigation/navigation.reducer';
+import { navigate } from '../../core/navigation/navigation.actions';
+import { RootRoute } from '../../core/navigation/navigation.reducer';
 import { fetchArticle, resetArticle } from '../article/article.actions';
 
 export const editorRoutes: Route[] = [

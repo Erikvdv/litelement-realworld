@@ -1,23 +1,23 @@
 import UniversalRouter, { Route } from 'universal-router';
-import { navigate } from './navigation/navigation.actions';
-import { RootRoute } from './navigation/navigation.reducer';
-import store from '../../core/store';
-import { articleRoutes } from '../article/article.router';
-import { profileRoutes } from '../profile/profile.router';
-import { editorRoutes } from '../editor/editor.router';
+import { navigate } from './core/navigation/navigation.actions';
+import { RootRoute } from './core/navigation/navigation.reducer';
+import store from './store';
+import { articleRoutes } from './components/article/article.router';
+import { profileRoutes } from './components/profile/profile.router';
+import { editorRoutes } from './components/editor/editor.router';
 
 const routes: Route[] = [
   {
     path: '',
     action: async () => {
-      await import('../home');
+      await import('./components/home');
       store.dispatch(navigate(RootRoute.home));
     },
   },
   {
     path: '/home',
     action: async () => {
-      await import('../home');
+      await import('./components/home');
       store.dispatch(navigate(RootRoute.home));
     },
   },
@@ -27,21 +27,21 @@ const routes: Route[] = [
   {
     path: '/register',
     action: async () => {
-      await import('../registration');
+      await import('./components/registration');
       return store.dispatch(navigate(RootRoute.register));
     },
   },
   {
     path: '/login',
     action: async () => {
-      await import('../login');
+      await import('./components/login');
       return store.dispatch(navigate(RootRoute.login));
     },
   },
   {
     path: '/settings',
     action: async () => {
-      await import('../settings');
+      await import('./components/settings');
       return store.dispatch(navigate(RootRoute.settings));
     },
   },
@@ -49,7 +49,7 @@ const routes: Route[] = [
     path: '(.*)',
     action: async () => {
       console.log('page not found');
-      await import('../home');
+      await import('./components/home');
       store.dispatch(navigate(RootRoute.home));
     },
   },

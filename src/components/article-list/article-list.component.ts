@@ -6,7 +6,7 @@ import {
 } from 'lit-element';
 
 import { connect } from 'pwa-helpers/connect-mixin';
-import store from '../../core/store';
+import store from '../../store';
 import { RootState } from 'typesafe-actions';
 import { ArticleListQuery } from '../../models';
 import { ArticleListTemplate } from './article-list.templates';

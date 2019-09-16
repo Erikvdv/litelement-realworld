@@ -1,4 +1,4 @@
-import { RootRoute } from './navigation/navigation.reducer';
+import { RootRoute } from './core/navigation/navigation.reducer';
 import { html } from 'lit-html';
 
 export const mainTemplate = (rootRoute: RootRoute) => html`

@@ -1,7 +1,7 @@
 import { customElement, LitElement, property } from 'lit-element';
 
 import { registrationTemplate } from './registration.templates';
-import store from '../../core/store';
+import store from '../../store';
 import { userRegistration } from '../../core/user/user.actions';
 import { UserRegistration } from '../../models/user.model';
 import { connect } from 'pwa-helpers/connect-mixin';

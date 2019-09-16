@@ -13,9 +13,9 @@ import * as api from './user.service';
 import { of } from 'rxjs';
 import { User } from '../../models/user.model';
 import { Errors } from '../../models';
-import { navigate } from '../../components/root/navigation/navigation.actions';
-import { RootRoute } from '../../components/root/navigation/navigation.reducer';
-import { router } from '../../components/root/root.router';
+import { navigate } from '../navigation/navigation.actions';
+import { RootRoute } from '../navigation/navigation.reducer';
+import { router } from '../../root.router';
 
 export const autoLoginInitiateEpic: Epic<
   RootAction,

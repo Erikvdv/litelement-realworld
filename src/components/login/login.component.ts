@@ -4,7 +4,7 @@ import('../shared/list-errors/list-errors.component');
 
 import { loginTemplate } from './login.templates';
 import { UserLogin } from './login.models';
-import store from '../../core/store';
+import store from '../../store';
 import { userLogin } from '../../core/user/user.actions';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { RootState } from 'typesafe-actions';

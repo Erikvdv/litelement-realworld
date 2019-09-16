@@ -4,7 +4,7 @@ import {
   property,
   PropertyValues,
 } from 'lit-element';
-import store from '../../core/store';
+import store from '../../store';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { RootState } from 'typesafe-actions';
 import { EditorTemplate } from './editor.templates';

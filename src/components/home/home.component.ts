@@ -1,7 +1,7 @@
 import { LitElement, customElement, property, html } from 'lit-element';
 import { homeTemplate } from './home.templates';
 import { connect } from 'pwa-helpers/connect-mixin';
-import store from '../../core/store';
+import store from '../../store';
 import { RootState } from 'typesafe-actions';
 import { SelectedTab } from './home.models';
 import { tags, selectTag, selectTab, initiateTab } from './home.actions';
