@@ -1,4 +1,4 @@
-import { API_ROOT } from '../../core/constants';
+import { API_ROOT } from '../constants';
 import { fromFetch } from 'rxjs/fetch';
 import { switchMap, catchError, map } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';

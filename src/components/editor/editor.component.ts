@@ -8,7 +8,7 @@ import store from '../../store';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { RootState } from 'typesafe-actions';
 import { EditorTemplate } from './editor.templates';
-import { addArticle, updateArticle } from '../article/article.actions';
+import { addArticle, updateArticle } from '../../core/article/article.actions';
 import { NewArticle, Article } from '../../models/article.model';
 
 export interface EditorFormFields {

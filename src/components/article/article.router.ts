@@ -1,6 +1,6 @@
 import { Route } from 'universal-router';
 import store from '../../store';
-import { fetchArticle, fetchComments } from './article.actions';
+import { fetchArticle, fetchComments } from '../../core/article/article.actions';
 import { navigate } from '../../core/navigation/navigation.actions';
 import { RootRoute } from '../../core/navigation/navigation.reducer';
 

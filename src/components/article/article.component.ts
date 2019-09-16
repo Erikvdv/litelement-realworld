@@ -3,7 +3,11 @@ import { connect } from 'pwa-helpers/connect-mixin';
 import store from '../../store';
 import { RootState } from 'typesafe-actions';
 import { ArticleTemplate } from './article.templates';
-import { deleteArticle, deleteComment, addComment } from './article.actions';
+import {
+  deleteArticle,
+  deleteComment,
+  addComment,
+} from '../../core/article/article.actions';
 import { Comment } from '../../models/comment.model';
 import { Article } from '../../models';
 import { User } from '../../models/user.model';

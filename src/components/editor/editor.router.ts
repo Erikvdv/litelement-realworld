@@ -4,7 +4,7 @@ import store from '../../store';
 import { resetEditor } from './editor.actions';
 import { navigate } from '../../core/navigation/navigation.actions';
 import { RootRoute } from '../../core/navigation/navigation.reducer';
-import { fetchArticle, resetArticle } from '../article/article.actions';
+import { fetchArticle, resetArticle } from '../../core/article/article.actions';
 
 export const editorRoutes: Route[] = [
   {
