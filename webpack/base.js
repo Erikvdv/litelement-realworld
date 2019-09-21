@@ -65,8 +65,7 @@ const base = {
     new htmlWebpackPlugin({
       inject: !multiBuildMode,
       chunksSortMode: 'none',
-      template,
-      // template: 'index.html',
+      template: 'index.html',
     }),
     new htmlWebpackMultiBuildPlugin(),
     new WorkboxWebpackPlugin.GenerateSW({
