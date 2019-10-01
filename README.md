@@ -30,8 +30,8 @@ It is using rxjs fetch for networking.
 - [x] Setup build pipeline
 - [x] All functional features implemented (note: some minor tasks remaining related to loading/updating state)
 - [x] A variant with RxJS and redux-observable
-- [x] A variant with RxJS and Observable-Store
 - [ ] Setup unit testing
 - [ ] Setup integration testing
 - [ ] Setup differential loading for observable store app
+- [ ] A variant with RxJS and Observable-Store
 
