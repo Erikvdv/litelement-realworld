@@ -21,7 +21,7 @@
     "lit-element": "^2.2.1",
     "marked": "^0.7.0",
     "pwa-helpers": "^0.9.1",
-    "redux": "^4.0.4",
+    "redux": "^4.1.1",
     "redux-observable": "^1.1.0",
     "reselect": "^4.0.0",
     "rxjs": "^6.5.2",
