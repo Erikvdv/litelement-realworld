@@ -24,7 +24,7 @@
     "redux": "^4.0.4",
     "redux-observable": "^1.1.0",
     "reselect": "^4.0.0",
-    "rxjs": "^6.5.2",
+    "rxjs": "^6.6.7",
     "typesafe-actions": "^4.4.2",
     "universal-router": "^8.2.1"
   },
