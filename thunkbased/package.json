@@ -17,7 +17,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "husky": "^3.0.3",
     "lit-element": "^2.2.1",
-    "marked": "^1.1.1",
+    "marked": "^4.0.10",
     "page": "^1.11.4",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.4",
